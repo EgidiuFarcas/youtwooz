@@ -1,20 +1,14 @@
 <template>
   <div>
     <a class="skip-link visually-hidden" href="#main-content"
-      >Skip to content</a
-    >
-  
-
+      >Skip to content</a>
     <main class="Layout_content" role="main" id="main-content">
       <div class="Layout_page_container Layout_page_container--product">
         <div id="shopify-section-product" class="shopify-section">
           <section data-section-id="product" data-section-type="product">
             <div
-              class="ModalWrapper ModalWrapper--with-cart
-  ModalWrapper--expand-on-small"
-              style="--env-keyColor: #DEF3FD;--env-gradientStops: #9393C6 0%, #99C3E5 100%;"
-              data-product-details='{"handle": "mizkif","fbq": {"content_type": "product","content_ids": ["4567039508553"],"content_category": "Streamer","value": "25,95","currency": "USD","content_name": "Mizkif"}}'
-            >
+              class="ModalWrapper ModalWrapper--with-cart ModalWrapper--expand-on-small"
+              style="--env-keyColor: #DEF3FD;--env-gradientStops: #9393C6 0%, #99C3E5 100%;">
               <div class="ModalWrapper_overlay" data-modal-close="<"></div>
               <div class="ModalWrapper_inner" data-scroll-lock-scrollable="">
                 <div class="ModalWrapper_box" data-gallery="">
@@ -106,9 +100,7 @@
                         >
                           <div class="Product-header">
                             <div class="Product-header_left">
-                              <div class="Product-brand">
-                                Streamer
-                              </div>
+                              <div class="Product-brand" style="float:left;">Streamer</div>
                               <div class="Product-name ">
                                 Mizkif
                               </div>

@@ -7,7 +7,7 @@
       >
         <div class="ProductCard_media">
           <div class="ProductCard_media_inner">
-            <img
+            <img :style="style"
               src="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_characterai_rb-min_x600.png?v=1601690078"
               alt="Mizkif"
             />
@@ -55,6 +55,11 @@
 
 <script>
 export default {
-    props: ['faded']
+    props: ['faded', 'hidden'],
+    computed: {
+      style(){
+        return (this.hidden == 'true') ? 'filter: brightness(0);' : '';
+      }
+    }
 }
 </script>

@@ -7,7 +7,7 @@
         <Section title="Live now!" hot="true" />
 
         <!-- Coming soon -->
-        <Section title="Upcoming Drops" faded="true"/>
+        <Section title="Upcoming Drops" faded="true" hidden="true"/>
 
         <!-- Sold Out -->
         <Section title="Past Drops" faded="true" description="Gone forever!"/>
