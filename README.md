@@ -8,10 +8,21 @@ Youtwooz is a fan made copy of the Youtooz website where people can share their 
 
 Youtwooz requires [Node.js](https://nodejs.org/) v12+ to run.
 
+To prepare the client:
+
 ```sh
 $ npm install
 $ npm run serve
 ```
+
+To prepare the server:
+
+```sh
+$ npm install
+$ npm run start
+```
+
+Client will run on port ```8080``` and Server on ```3000```
 
 ### Development
 
