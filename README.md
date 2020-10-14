@@ -35,15 +35,19 @@ Youtwooz uses the MEVN stack for fast developing. Fell free to help improve the 
 
 ### Todos
 
- - Add Auth
- - Add Figure submissions
- - Add Submission Filter
- - Add Score System
- - Add 3rd Party auth (google/discord)
- - And more stuff that I didn't think of yet
+ - [ ] Add Auth
+ - [ ] Add Figure submissions
+ - [ ] Add Submission Filter
+ - [ ] Add Score System
+ - [ ] Add 3rd Party auth (google/discord)
+ 
+And more stuff that I didn't think of yet
+
+## Contributors
+
+[@OwenKoppYT](https://mobile.twitter.com/OwenKoppYT) - Provided the favicon
 
 License
 ----
 
 MIT
-
