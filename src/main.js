@@ -1,8 +1,14 @@
 import Vue from 'vue'
+import VueCookies from 'vue-cookies'
 import App from './App.vue'
 import router from './router'
+import './assets/css/tailwind.css'
 
 Vue.config.productionTip = false
+
+Vue.use(VueCookies);
+
+Vue.$cookies.config('7d');
 
 new Vue({
   router,

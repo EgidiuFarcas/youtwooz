@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+#Server stuff
+/server/node_modules/
+/server/.env

@@ -28,7 +28,7 @@ Client will run on port ```8080``` and Server on ```3000```
 
 Want to contribute? Great!
 
-Youtwooz uses the MEVN stack for fast developing. Fell free to help improve the website!
+Youtwooz uses the MEVN stack for fast developing. Feel free to help improve the website!
 
 - The root folder is the client side code (Vue.js)
 - In `server` you can find the server side code (MEN)
