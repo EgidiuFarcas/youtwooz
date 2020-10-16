@@ -14,6 +14,28 @@ export default class AuthMiddleware {
         else next({path:'/account'});
     }
 
+    async logout(){
+        let succ = false;
+        await axios({
+            method: "DELETE",
+            url: apiURL + "/api/auth/logout",
+            headers: {
+                'Authorization': Vue.$cookies.get('access-token')
+            },
+            data: {
+                'token': Vue.$cookies.get('refresh-token')
+            }
+        }).then(() => {
+            Vue.$cookies.remove('access-token');
+            Vue.$cookies.remove('refresh-token');
+            succ = true;
+        }).catch(err => {
+            console.log(err);
+            succ = false;
+        });
+        return succ;
+    }
+
     async checkAuthentication(){
         let accessToken = Vue.$cookies.get('access-token');
         let refreshToken = Vue.$cookies.get('refresh-token');

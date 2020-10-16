@@ -6,6 +6,8 @@
             class="text-xl px-6 py-3 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Register</button>
         <button @click="$router.push('/account')" :class="{'hidden': !isAuthenticated}"
             class="text-xl px-6 py-3 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">My Account</button>
+        <button @click="logout" :class="{'hidden': !isAuthenticated}"
+            class="text-xl px-6 py-3 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Logout</button>
     
     </div>
 </template>
@@ -22,6 +24,12 @@ export default {
     async beforeMount(){
         let am = new AuthMiddleware();
         if(await am.checkAuthentication()) this.isAuthenticated = true;
+    },
+    methods: {
+        async logout(){
+            let am = new AuthMiddleware();
+            if(await am.logout()) window.location.reload();
+        }
     }
 }
 </script>
