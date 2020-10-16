@@ -11,8 +11,11 @@
         <p class="mt-2 text-xl">@{{user.name}} <span class="bg-blue-500 text-sm text-white rounded-md px-2 py-1"> • {{user.role}}</span></p>
         <p class="text italic">{{user.email}}</p>
         <div class="mt-4">
+            <button @click="$router.push('/')"
+             class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Home</button>
             <button @click="logout"
              class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Logout</button>
+            
         </div>
         <input type="file" ref="pfp" @change="uploadNewPFP" class="hidden">
     </div>
