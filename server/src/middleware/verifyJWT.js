@@ -5,7 +5,7 @@ export default function (req, res, next){
     if(!token) return res.status(401).send('Access denied');
     try{
         let verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.userID = verified;
+        req.userID = verified.id;
     }catch(err){
         return res.status(400).send('Invalid Token');
     }

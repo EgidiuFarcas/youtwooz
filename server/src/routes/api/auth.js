@@ -9,6 +9,7 @@ router.post('/login', (req, res) => AuthController.login(req, res));
 router.post('/token', (req, res) => AuthController.regenToken(req, res));
 router.post('/verify', (req, res) => AuthController.verifyAccount(req, res));
 
+router.post('/info', verifyJWT, (req, res) => AuthController.getUserInfo(req, res));
 router.delete('/logout', verifyJWT, (req, res) => AuthController.logout(req, res));
 
 router.post('/check', verifyJWT, (req, res) => {
