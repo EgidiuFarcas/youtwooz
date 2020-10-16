@@ -15,6 +15,7 @@ mongoose.connect(
     () => console.log('Connected to DB')
 );
 //App middleware
+app.use('/public/', express.static('./public'));
 app.use(express.json());
 app.use(cors());
 //Route middleware

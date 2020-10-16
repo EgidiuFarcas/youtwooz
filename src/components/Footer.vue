@@ -4,7 +4,7 @@
 <footer class="Footer">
   <div class="Footer_inner">
     <div class="Footer_section Footer_section--icons">
-      <a href="/" class="Footer_logo mb-0">
+      <a href="/" class="Footer_logo mb-1">
       <img src="@/assets/youtwooz_inline.png" class="h-12 w-auto" alt="">
 </a>
 
@@ -12,7 +12,7 @@
         <nav class="Footer_socials">
           <ul class="Footer_socials_inner">
                 <li class="Footer_socials_item" data-nth-counter="">
-                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://twitter.com/youtwooz" title="Youtooz Collectibles on twitter">
+                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://twitter.com/youtwooz" title="Youtwooz Collectibles on twitter">
                     <i class="Footer_socials_icon"><svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
   <use xlink:href="#twitter"></use>
 </svg>
@@ -25,7 +25,7 @@
             
 
                 <li class="Footer_socials_item" data-nth-counter="">
-                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://reddit.com/r/youtwooz" title="Youtooz Collectibles on reddit">
+                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://reddit.com/r/youtwooz" title="Youtwooz Collectibles on reddit">
                     <i class="Footer_socials_icon"><svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
   <use xlink:href="#reddit"></use>
 </svg>

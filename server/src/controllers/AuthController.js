@@ -1,9 +1,11 @@
 import bcrypt from 'bcryptjs';
+import fs, { unlink } from "fs";
 import UserModel from '../models/UserModel.js';
 import { loginValidation, registerValidation } from '../validators/validation.js';
 import jwt from 'jsonwebtoken';
 import RefreshTokenModel from '../models/RefreshTokenModel.js';
 import Mail from '../utils/Mailer.js';
+
 
 class AuthController {
     static async login(req, res) {
@@ -92,6 +94,32 @@ class AuthController {
             };
             return res.send({access_token: this.generateJWT(tokenUser)});
         });
+    }
+
+    static async uploadProfilePicture(req, res) {
+        let tempPath = req.file.path;
+        let originalName = String(req.file.originalname);
+        let extension = originalName.split('.');
+        extension = extension[extension.length -1];
+        let fullPath = "/" + tempPath + '.' + extension;
+        try{
+            fs.rename(tempPath, '.' + fullPath, (err) => console.log(err));
+        }catch(err) {
+            res.status(400).send(err);
+            return;
+        }
+        let user = await UserModel.findByID(req.userID);
+        if(user.pfp !== ""){
+            fs.unlinkSync('.'+user.pfp);
+        }
+        user.pfp = fullPath;
+        try{
+            await user.save();
+        }catch(err) {
+            res.status(400).send(err);
+            return;
+        }
+        res.send(fullPath);
     }
 
     static async getUserInfo(req, res){

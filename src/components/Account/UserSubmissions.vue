@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow-md rounded-lg w-full flex flex-col py-4">
+    <div class="shadow-md rounded-lg w-full flex flex-col py-4 border-solid border-t-8 border-theme-dark">
         <h1 class="text-2xl">My Figures</h1>
         <div class="my-4">
             <button class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">

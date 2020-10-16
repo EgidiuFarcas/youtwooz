@@ -25,3 +25,5 @@ pnpm-debug.log*
 #Server stuff
 /server/node_modules/
 /server/.env
+
+/server/public/uploads
