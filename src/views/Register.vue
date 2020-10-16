@@ -49,6 +49,7 @@
 
 <script>
 import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
 
 export default {
     data() {
@@ -73,7 +74,7 @@ export default {
 
             axios({
                 method: 'POST',
-                url: 'http://localhost:3001/api/auth/register',
+                url: apiURL + '/api/auth/register',
                 data: payload
             })
             .then(res => {

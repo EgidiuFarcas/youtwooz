@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
 
 export default {
     data() {
@@ -55,7 +56,7 @@ export default {
 
             axios({
                 method: 'POST',
-                url: 'http://localhost:3001/api/auth/login',
+                url: apiURL + '/api/auth/login',
                 data: payload
             })
             .then(res => {
@@ -65,6 +66,7 @@ export default {
                 this.password = '';
                 this.$cookies.set('access-token', res.data.access_token, "1d");
                 this.$cookies.set('refresh-token', res.data.refresh_token, "7d");
+                this.$router.push('/account');
             })
             .catch(err => {
                 if(!err.response) return;

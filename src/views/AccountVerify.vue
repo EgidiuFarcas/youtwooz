@@ -10,6 +10,7 @@
 
 <script>
 import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
 
 export default {
     mounted(){
@@ -27,7 +28,7 @@ export default {
             // axios.post('http://localhost:3000/api/auth/verify', JSON.stringify(payload))
             axios({
                 method: 'POST',
-                url: 'http://localhost:3001/api/auth/verify',
+                url: apiURL + '/api/auth/verify',
                 data: {
                     "userID": this.$route.params.userID,
                     "verifyToken": this.$route.params.verifyToken
