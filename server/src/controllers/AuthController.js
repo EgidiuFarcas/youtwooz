@@ -4,7 +4,6 @@ import { loginValidation, registerValidation } from '../validators/validation.js
 import jwt from 'jsonwebtoken';
 import RefreshTokenModel from '../models/RefreshTokenModel.js';
 import Mail from '../utils/Mailer.js';
-import User from '../database/User.js';
 
 class AuthController {
     static async login(req, res) {
@@ -83,17 +82,22 @@ class AuthController {
     static async regenToken(req, res) {
         let refreshToken = req.body.token;
         if(refreshToken === null) return res.status(400).send('Invalid Token');
-        if(!RefreshTokenModel.exists(refreshToken)) return res.status(400).send('Invalid Token');
+        if(! await RefreshTokenModel.exists(refreshToken)) return res.status(400).send('Invalid Token');
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if(err) return res.sendStatus(403);
-            return res.send({access_token: this.generateJWT(user)});
+            let tokenUser = {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            };
+            return res.send({access_token: this.generateJWT(tokenUser)});
         });
     }
 
     static async logout(req, res){
         let refreshToken = req.body.token;
         if(refreshToken === null) return res.status(400).send('Invalid Token');
-        if(!RefreshTokenModel.exists(refreshToken)) return res.status(400).send('Invalid Token');
+        if(! await RefreshTokenModel.exists(refreshToken)) return res.status(400).send('Invalid Token');
         await RefreshTokenModel.delete(refreshToken);
         res.sendStatus(200);
     }
