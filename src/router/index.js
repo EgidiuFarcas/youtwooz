@@ -39,6 +39,12 @@ const routes = [
     beforeEnter: (to, from, next) => am.isAuthenticated(next)
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+    beforeEnter: (to, from, next) => am.isAdmin(next)
+  },
+  {
     path: '/account/verify/:userID/:verifyToken',
     name: 'AccountVerify',
     component: () => import('../views/AccountVerify.vue')

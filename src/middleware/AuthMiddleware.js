@@ -14,6 +14,12 @@ export default class AuthMiddleware {
         else next({path:'/account'});
     }
 
+    async isAdmin(next){
+        if(!await this.checkAuthentication()) next({path:'/login'});
+        else if(!await this.checkAdmin()) next({path:'/account'});
+        else next();
+    }
+
     async logout(){
         let succ = false;
         await axios({
@@ -34,6 +40,29 @@ export default class AuthMiddleware {
             succ = false;
         });
         return succ;
+    }
+
+    async checkAdmin(){
+        let accessToken = Vue.$cookies.get('access-token');
+        //IF theres no access token, the user is not authenticated
+        if(accessToken === null) return false;
+
+        let isAdmin = false;
+
+        await axios({
+            method:"POST",
+            url: apiURL + '/api/auth/check-admin',
+            headers: {
+                'Authorization': accessToken
+            }
+        })
+        .then(() => {
+            isAdmin = true;
+        })
+        .catch(() => {
+            isAdmin = false;
+        });
+        return isAdmin;
     }
 
     async checkAuthentication(){

@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import AuthController from '../../controllers/AuthController.js';
 import verifyJWT from '../../middleware/verifyJWT.js';
+import verifyAdmin from '../../middleware/verifyAdmin.js';
 
 const upload = multer({
     dest: './public/uploads/pfp'
@@ -19,6 +20,10 @@ router.post('/pfp', [verifyJWT, upload.single("file")], (req, res) => AuthContro
 router.delete('/logout', verifyJWT, (req, res) => AuthController.logout(req, res));
 
 router.post('/check', verifyJWT, (req, res) => {
+    res.send('OK');
+});
+
+router.post('/check-admin', [verifyJWT, verifyAdmin], (req, res) => {
     res.send('OK');
 });
 
