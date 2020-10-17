@@ -78,7 +78,9 @@ export default {
                 user.email = res.data.email;
                 if(res.data.pfp !== null) user.pfp = apiURL + res.data.pfp;
                 if(res.data.role !== null) this.loadUserRole(res.data.role)
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                if(err.response.status === 404) this.logout();
+            });
         },
         async loadUserRole(roleID){
             axios({

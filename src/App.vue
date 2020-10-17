@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app touch-scroll">
     <vue-page-transition name="overlay-left-full">
       <router-view/>
     </vue-page-transition>
   </div>
 </template>
+
 
 <style>
 #app {

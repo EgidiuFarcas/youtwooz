@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="text-center font-raleway">
         <UserInfo />
         <div class="p-4">
 
