@@ -1,5 +1,5 @@
 <template>
-    <div class="Showcase_item">
+    <div class="Showcase_item z-10">
       <router-link
         to="/products/mizkif"
         class="ProductCard " :class="{'ProductCard--faded': faded == 'true'}"

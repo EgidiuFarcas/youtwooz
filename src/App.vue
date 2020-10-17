@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <vue-page-transition name="overlay-right-full">
+      <router-view/>
+    </vue-page-transition>
   </div>
 </template>
 
@@ -10,19 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.overlay-left,  .overlay-right,  .overlay-top,  .overlay-bottom   {
+    background: #ff467f !important;
+    z-index: 1000;
 }
 </style>
