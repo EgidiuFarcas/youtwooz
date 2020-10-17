@@ -22,9 +22,14 @@
                             Login
                         </button>
 
-                        <a class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" href="#">
-                            Forgot Password?
-                        </a>
+                        <div class="flex flex-col">
+                            <router-link class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" to="/">
+                                Forgot Password?
+                            </router-link>
+                            <router-link class="no-underline inline-block align-baseline text-sm text-blue hover:text-blue-dark float-right" to="/">
+                                Back to homepage
+                            </router-link>
+                        </div>
                     </div>
                     
                 </div>

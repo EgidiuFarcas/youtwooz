@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-page-transition name="overlay-right-full">
+    <vue-page-transition name="overlay-left-full">
       <router-view/>
     </vue-page-transition>
   </div>

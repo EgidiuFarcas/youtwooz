@@ -29,13 +29,13 @@
 
                     <div class="flex items-center justify-between">
                         <button @click="submitForm" type="button" 
-                            class="g-recaptcha bg-theme-light hover:bg-teal text-white font-bold py-2 px-4 mx-auto rounded focus:outline-none hover:bg-theme-dark">
+                            class="g-recaptcha bg-theme-light hover:bg-teal text-white font-bold py-2 px-4  rounded focus:outline-none hover:bg-theme-dark">
                             Register
                         </button>
 
-                        <!-- <a class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" href="#">
-                            Forgot Password?
-                        </a> -->
+                            <router-link class="no-underline inline-block align-baseline text-sm text-blue hover:text-blue-dark float-right" to="/">
+                                Back to homepage
+                            </router-link>
                     </div>
                     
                 </div>
