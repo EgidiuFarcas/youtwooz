@@ -60,7 +60,6 @@ export default {
                 data: payload
             })
             .then(res => {
-                console.log(res);
                 document.getElementById('errorBox').classList.add('hidden');
                 this.email = '';
                 this.password = '';

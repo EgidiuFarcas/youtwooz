@@ -10,13 +10,13 @@
                      <div id="successBox" class="hidden mb-4 bg-green-500 text-white p-2 rounded shadow-md">
                         Account created! Check your email to verify it. (Check Spam/Junk folder too)
                     </div>
-                    <div class="mb-4">
-                        <label class="font-bold text-grey-darker block mb-2">Your Email</label>
-                        <input v-model="email" required type="email" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Email">
-                    </div>
                      <div class="mb-4">
                         <label class="font-bold text-grey-darker block mb-2">Your Username</label>
                         <input v-model="username" required type="text" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Username">
+                    </div>
+                    <div class="mb-4">
+                        <label class="font-bold text-grey-darker block mb-2">Your Email</label>
+                        <input v-model="email" required type="email" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Email">
                     </div>
                     <div class="mb-4">
                         <label class="font-bold text-grey-darker block mb-2">Password</label>

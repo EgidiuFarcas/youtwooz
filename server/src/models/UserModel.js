@@ -7,6 +7,7 @@ export default class UserModel {
             name: data.name,
             email: data.email,
             password: data.password,
+            role: process.env.DEFAULT_ROLE_ID
         });
         return await user.save();
     }

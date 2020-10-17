@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, require: true, min: 6, max: 1024 },
     verified: { type: Boolean, default: false },
     verifyToken: { type: String, default: () => randToken.generate(64)},
-    role: { type: String, default: "User"},
+    role: { type: String, default: null},
     points: { type: Number, default: 0},
     pfp: { type: String, default: null}
 }, {timestamps: true});
