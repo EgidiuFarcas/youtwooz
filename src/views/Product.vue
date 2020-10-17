@@ -109,7 +109,7 @@
                             <div class="Product-header_right">
                               <div class="Product-price">
                                 <span class="Product-price_current ">
-                                  €25,95 EUR
+                                  $29,99 USD
                                 </span>
                               </div>
                             </div>

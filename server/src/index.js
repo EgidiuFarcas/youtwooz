@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import authRoutes from './routes/api/auth.js';
+import priceRoutes from './routes/api/price.js';
 //Load .env
 dotenv.config();
 //Create app server
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 //Route middleware
 app.use('/api/auth', authRoutes);
+app.use('/api/price', priceRoutes);
 
 app.get('/', (req, res) => res.send("Live."));
 

@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import fs, { unlink } from "fs";
+import fs from "fs";
 import UserModel from '../models/UserModel.js';
 import { loginValidation, registerValidation } from '../validators/validation.js';
 import jwt from 'jsonwebtoken';
