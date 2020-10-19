@@ -36,7 +36,9 @@ Youtwooz uses the MEVN stack for fast developing. Feel free to help improve the 
 ### Todos
 
  - [X] Add Auth
- - [ ] Add Figure submissions
+ - [X] Add Figure submissions form
+ - [X] Add Figure submission logic
+ - [ ] Link logic with form
  - [ ] Add Submission Filter
  - [ ] Add Score System
  - [ ] Add 3rd Party auth (google/discord)
