@@ -3,7 +3,7 @@
     <Banner></Banner>
     <main class="Layout_content" role="main" id="main-content">
       <div class="Layout_page_container Layout_page_container--index">
-        <AuthButtons />
+        <AuthButtons class="text-center" />
         <!-- Live now -->
         <Section title="Live now!" hot="true" />
 

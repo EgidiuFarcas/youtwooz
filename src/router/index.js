@@ -30,6 +30,11 @@ const routes = [
     beforeEnter: (to, from, next) => am.isAuthenticated(next)
   },
   {
+    path: '/create-submission', name: 'CreateSubmission',
+    component: () => import('../views/CreateSubmission.vue'),
+    beforeEnter: (to, from, next) => am.isAuthenticated(next)
+  },
+  {
     path: '/admin', name: 'Admin',
     component: () => import('../views/Admin.vue'),
     beforeEnter: (to, from, next) => am.isAdmin(next)
