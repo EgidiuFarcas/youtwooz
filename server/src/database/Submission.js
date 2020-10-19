@@ -19,20 +19,20 @@ import mongoose from 'mongoose';
  */
 
 const submissionSchema = new mongoose.Schema({
-    type: { type: Number, required: true, min: 0, max: 2},
+    submitterID: { type: String, required: true},
+    type: { type: Number, required: true, min: -1, max: 2},
     hasBox: { type: Boolean, required: true, default: false},
     name: { type: String, required: true, min: 6, max: 255 },
-    description: { type: String, required: true, min: 255, max: 5120},
-    categoryID: { type: String, required: true},
-    priceID: { type: String, required: true},
-    height: { type: Number, required: true},
-    submitterID: { type: String, required: true},
-    artist2d: { type: String},
-    artist3d: { type: String},
-    image2d: { type: String},
-    image3d: { type: String},
+    description: { type: String, min: 255, max: 5120},
+    categoryID: { type: String},
+    priceID: { type: String},
+    height: { type: String},
+    artist2D: { type: String},
+    artist3D: { type: String},
+    image2D: { type: String},
+    image3D: { type: String},
     imageBox: { type: String},
-    status: { type: String, required: true, default: "pending"},
+    status: { type: String, required: true, default: "draft"},
     statusMessage: { type: String, required: true, default: "New submission"}
 }, {timestamps: true});
 

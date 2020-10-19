@@ -6,6 +6,7 @@ import authRoutes from './routes/api/auth.js';
 import priceRoutes from './routes/api/price.js';
 import categoryRoutes from './routes/api/category.js';
 import roleRoutes from './routes/api/role.js';
+import submissionRoutes from './routes/api/submission.js';
 //Load .env
 dotenv.config();
 //Create app server
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/price', priceRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/role', roleRoutes);
+app.use('/api/submission', submissionRoutes);
 
 app.get('/', (req, res) => res.send("Live."));
 
