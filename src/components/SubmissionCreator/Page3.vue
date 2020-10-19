@@ -4,10 +4,10 @@
             <input v-model="height" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="Figure Height">
         </div>
         <div class="w-full px-4 mt-4">
-            <input v-if="type !== '3D'" v-model="artist2D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="2D Artist">
+            <input v-if="type !== '3D'" required v-model="artist2D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="2D Artist">
         </div>
         <div class="w-full px-4 mt-4">
-            <input v-if="type !== '2D'" v-model="artist3D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="3D Artist">
+            <input v-if="type !== '2D'" required v-model="artist3D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="3D Artist">
         </div>
         <div class="w-full px-4 mt-4 flex flex-col overflow-y-scroll" style="max-height: 15rem">
             <p class="mb-2">Category</p>

@@ -13,14 +13,15 @@
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime paste'
             ],
+            height: 500,
             toolbar:
                 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | fontselect styleselect | bullist numlist outdent indent | link',
             content_style: 
                 `@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-                body { font-family: 'Luckiest Guy', cursive; }`,
+                body { font-family: Inter, cursive; }`,
             font_formats: 'Luckiest Guy=Luckiest Guy, cursive; Inter=Inter, sans-serif;'
-        }" style="min-height: 35rem; width: 100%"/>
+        }" style="width: 100%"/>
     </div>
 </template>
 

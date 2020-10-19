@@ -28,45 +28,106 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
+
 export default {
     props: {
         type: String,
-        hasBox: Boolean
+        hasBox: Boolean,
+        submissionID: String,
     },
     data(){
         return {
             concept2D: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
-            concept2DFile: null,
+            concept2DFileUploaded: false,
             concept3D: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
-            concept3DFile: null,
+            concept3DFileUploaded: false,
             conceptBox: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
-            conceptBoxFile: null,
+            conceptBoxFileUploaded: false,
         }
     },
     methods: {
-        upload2DConcept: function(e){
+        upload2DConcept: async function(e){
             let files = e.target.files || e.dataTransfer.files;
             //If theres no image or more than 1, cancel
             if(!files.length || files.length > 1) return;
             let file = files[0];
-            this.concept2DFile = file;
             this.concept2D = URL.createObjectURL(file);
+
+            let data = new FormData();
+            data.append('file', file, file.fileName);
+            data.append('imageType', '2D');
+            data.append('submissionID', this.submissionID);
+
+            axios({
+                method: "post",
+                url: apiURL + "/api/submission/new/image",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token'),
+                    'Content-Type': 'multipart/form-data'
+                },
+                data: data
+            })
+            .then(() => this.concept2DFileUploaded = true)
+            .catch(err =>{
+                this.concept2D = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                alert(err.response.data);
+            });
         },
-        upload3DConcept: function(e){
+        upload3DConcept: async function(e){
             let files = e.target.files || e.dataTransfer.files;
             //If theres no image or more than 1, cancel
             if(!files.length || files.length > 1) return;
             let file = files[0];
-            this.concept3DFile = file;
             this.concept3D = URL.createObjectURL(file);
+
+            let data = new FormData();
+            data.append('file', file, file.fileName);
+            data.append('imageType', '3D');
+            data.append('submissionID', this.submissionID);
+
+            axios({
+                method: "post",
+                url: apiURL + "/api/submission/new/image",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token'),
+                    'Content-Type': 'multipart/form-data'
+                },
+                data: data
+            })
+            .then(() => this.concept3DFileUploaded = true)
+            .catch(err => {
+                this.concept3D = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                alert(err.response.data);
+            });
         },
-        uploadBoxConcept: function(e){
+        uploadBoxConcept: async function(e){
             let files = e.target.files || e.dataTransfer.files;
             //If theres no image or more than 1, cancel
             if(!files.length || files.length > 1) return;
             let file = files[0];
-            this.conceptBoxFile = file;
             this.conceptBox = URL.createObjectURL(file);
+
+            let data = new FormData();
+            data.append('file', file, file.fileName);
+            data.append('imageType', 'Box');
+            data.append('submissionID', this.submissionID);
+
+            axios({
+                method: "post",
+                url: apiURL + "/api/submission/new/image",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token'),
+                    'Content-Type': 'multipart/form-data'
+                },
+                data: data
+            })
+            .then(() => this.conceptBoxFileUploaded = true)
+            .catch(err => {
+                this.conceptBox = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                alert(err.response.data);
+            });
         }
     }
 }

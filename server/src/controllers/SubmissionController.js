@@ -1,7 +1,7 @@
 import Entities from 'html-entities';
 import fs from "fs";
 import SubmissionModel from '../models/SubmissionModel.js';
-import { stepOneValidation, stepTwoValidation, stepThreeValidation, setImageValidation } from '../validators/submissionValidation.js';
+import { stepOneValidation, stepTwoValidation, stepThreeValidation, setImageValidation, setStatusValidation } from '../validators/submissionValidation.js';
 
 const entities = new Entities.AllHtmlEntities();
 
@@ -13,10 +13,20 @@ class SubmissionController {
         if(error) return res.status(400).send(error.details[0].message);
 
         let name = entities.encodeNonUTF(req.body.name);
-
-        let sub = await SubmissionModel.create(name,
-            req.body.hasBox, req.body.type, req.body.submitterID);
-        if(!sub) return res.status(400).send("Something went wrong.");
+        let sub;
+        if(req.body.submissionID !== undefined && req.body.submissionID !== null && req.body.submissionID !== ''){
+            sub = await SubmissionModel.setInfo(req.body.submissionID, {
+                name: name,
+                hasBox: req.body.hasBox,
+                type: SubmissionModel.convertTypeTextToNumber(req.body.type)
+            });
+            if(sub.nModified === 0) return res.status(400).send("Something went wrong.");
+            sub = await SubmissionModel.get(req.body.submissionID);
+        }else{
+            sub = await SubmissionModel.create(name,
+                req.body.hasBox, req.body.type, req.body.submitterID);
+            if(!sub) return res.status(400).send("Something went wrong.");
+        }
         if(sub.type === -1){
             await SubmissionModel.delete(sub._id);
             return res.status(400).send("Wrong Submission Type.");
@@ -54,6 +64,21 @@ class SubmissionController {
         return res.send(sub);
     }
 
+    static async setStatus(req, res){
+        let {error} = setStatusValidation(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+        
+        if(req.body.status) req.body.status = entities.encodeNonUTF(req.body.status);
+        if(req.body.statusMessage) req.body.statusMessage = entities.encodeNonUTF(req.body.statusMessage);
+        
+        let sub = await SubmissionModel.setInfo(req.body.submissionID, {
+            status: req.body.status,
+            statusMessage: req.body.statusMessage
+        });
+        if(!sub) return res.status(400).send("Something went wrong");
+        return res.send(sub);
+    }
+
     static async setImage(req, res) {
         let {error} = setImageValidation(req.body);
         if(error) return res.status(400).send(error.details[0].message);
@@ -62,6 +87,10 @@ class SubmissionController {
         let originalName = String(req.file.originalname);
         let extension = originalName.split('.');
         extension = extension[extension.length -1];
+        if(String(extension).toLowerCase() !== "png"){
+            fs.unlinkSync('./' + tempPath);
+            return res.status(400).send("Wrong Image Format. Only PNGs Allowed.");
+        }
         let fullPath = "/" + tempPath + '.' + extension;
         try{
             fs.rename(tempPath, '.' + fullPath, (err) => console.log(err));

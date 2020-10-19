@@ -14,6 +14,6 @@ router.post('/new/one', [verifyJWT], (req, res) => SubmissionController.stepOne(
 router.post('/new/two', [verifyJWT], (req, res) => SubmissionController.stepTwo(req, res));
 router.post('/new/three', [verifyJWT], (req, res) => SubmissionController.stepThree(req, res));
 router.post('/new/image', [verifyJWT, upload.single("file")], (req, res) => SubmissionController.setImage(req, res));
-
+router.post('/status', [verifyJWT], (req, res) => SubmissionController.setStatus(req, res));
 
 export default router;
