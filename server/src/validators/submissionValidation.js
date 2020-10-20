@@ -29,7 +29,9 @@ export const stepThreeValidation = (requestBody) => {
         priceID: Joi.string().required(),
         height: Joi.string().required(),
         artist2D: Joi.string().allow(null, ''),
-        artist3D: Joi.string().allow(null, '')
+        artist3D: Joi.string().allow(null, ''),
+        gradientFrom: Joi.string().required(),
+        gradientTo: Joi.string().required()
     });
 
     return schema.validate(requestBody);

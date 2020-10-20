@@ -158,6 +158,8 @@ export default {
                 'priceID': p3Data.price,
                 'artist2D': p3Data.artist2D,
                 'artist3D': p3Data.artist3D,
+                'gradientFrom': p3Data.gradientFrom,
+                'gradientTo': p3Data.gradientTo,
             };
             await axios({
                 method: "POST",

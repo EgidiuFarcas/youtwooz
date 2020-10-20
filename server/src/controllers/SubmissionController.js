@@ -7,6 +7,15 @@ const entities = new Entities.AllHtmlEntities();
 
 class SubmissionController {
 
+
+    static async getMine(req, res) {
+        let submitterID = req.userID;
+        if(!submitterID) return res.status(400).send("SubmitterID not valid");
+
+        let subs = await SubmissionModel.find({submitterID: submitterID});
+        return res.send({submissions: subs});
+    }
+
     static async stepOne(req, res){
         req.body.submitterID = req.userID;
         let {error} = stepOneValidation(req.body);
@@ -52,13 +61,17 @@ class SubmissionController {
         if(req.body.artist2D) req.body.artist2D = entities.encodeNonUTF(req.body.artist2D);
         if(req.body.artist3D) req.body.artist3D = entities.encodeNonUTF(req.body.artist3D);
         if(req.body.height) req.body.height = entities.encodeNonUTF(req.body.height);
+        if(req.body.gradientFrom) req.body.gradientFrom = entities.encodeNonUTF(req.body.gradientFrom);
+        if(req.body.gradientTo) req.body.gradientTo = entities.encodeNonUTF(req.body.gradientTo);
 
         let sub = await SubmissionModel.setInfo(req.body.submissionID, {
             categoryID: req.body.categoryID,
             priceID: req.body.priceID,
             height: req.body.height,
             artist2D: req.body.artist2D,
-            artist3D: req.body.artist3D
+            artist3D: req.body.artist3D,
+            gradientFrom: req.body.gradientFrom,
+            gradientTo: req.body.gradientTo
         });
         if(!sub) return res.status(400).send("Something went wrong");
         return res.send(sub);

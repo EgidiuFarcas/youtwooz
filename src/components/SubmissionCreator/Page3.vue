@@ -9,6 +9,14 @@
         <div class="w-full px-4 mt-4">
             <input v-if="type !== '2D'" required v-model="artist3D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="3D Artist">
         </div>
+        <div class="w-full px-4 mt-4">
+            <label for="gradientFrom">Gradient Color Dark</label>
+            <input required v-model="gradientFrom" id="gradientFrom" class="text-lg w-full rounded-lg h-10" type="color">
+        </div>
+        <div class="w-full px-4 mt-4">
+            <label for="gradientTo">Gradient Color Light</label>
+            <input required v-model="gradientTo" id="gradientTo" class=" w-full rounded-lg h-10" type="color">
+        </div>
         <div class="w-full px-4 mt-4 flex flex-col overflow-y-scroll" style="max-height: 15rem">
             <p class="mb-2">Category</p>
             <div v-for="categ in categories" :key="categ.id">
@@ -42,6 +50,8 @@ export default {
             artist2D: '',
             artist3D: '',
             category: '',
+            gradientFrom: '#000000',
+            gradientTo: '#FFFFFF',
             price: '',
             categories: [],
             prices: [],

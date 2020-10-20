@@ -27,6 +27,8 @@ const submissionSchema = new mongoose.Schema({
     categoryID: { type: String},
     priceID: { type: String},
     height: { type: String},
+    gradientFrom: { type: String},
+    gradientTo: { type: String},
     artist2D: { type: String},
     artist3D: { type: String},
     image2D: { type: String},

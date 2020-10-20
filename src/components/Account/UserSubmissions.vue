@@ -8,7 +8,42 @@
             </button>
         </div>
         <div class="w-full flex flex-col">
-
+            <submission v-for="sub in submissions" :key="sub.id" :info="sub"></submission>
         </div>
     </div>
 </template>
+
+<script>
+import Submission from '@/components/Account/Submission.vue';
+import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
+
+export default {
+    components: {
+        'submission': Submission
+    },
+    data() {
+        return {
+            submissions: []
+        }
+    },
+    mounted() {
+        this.fetchSubmissions();
+    },
+    methods: {
+        fetchSubmissions() {
+            axios({
+                method: "POST",
+                url: apiURL + "/api/submission/get/mine",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token')
+                }
+            })
+            .then(res => {
+                this.submissions = res.data.submissions;
+            })
+            .catch(err => console.log(err.response));
+        }
+    }
+}
+</script>

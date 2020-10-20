@@ -26,6 +26,10 @@ class SubmissionModel {
         return await Submission.findById(id);
     }
 
+    static async find(conditions){
+        return await Submission.find(conditions);
+    }
+
     static async delete(id){
         return await Submission.findByIdAndDelete(id);
     }
