@@ -36,6 +36,7 @@ export default {
         type: String,
         hasBox: Boolean,
         submissionID: String,
+        info: Object,
     },
     data(){
         return {
@@ -45,6 +46,22 @@ export default {
             concept3DFileUploaded: false,
             conceptBox: '/assets/addimage.png',
             conceptBoxFileUploaded: false,
+        }
+    },
+    mounted(){
+        if(this.info !== undefined){
+            if(this.info.image2D) {
+                this.concept2D = apiURL + this.info.image2D;
+                this.concept2DFileUploaded = true;
+            }
+            if(this.info.image3D) {
+                this.concept3D = apiURL + this.info.image3D;
+                this.concept3DFileUploaded = true;
+            }
+            if(this.info.imageBox) {
+                this.conceptBox = apiURL + this.info.imageBox;
+                this.conceptBoxFileUploaded = true;
+            }
         }
     },
     methods: {

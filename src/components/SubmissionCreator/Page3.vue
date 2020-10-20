@@ -1,13 +1,13 @@
 <template>
     <div class="transition-all duration-300">
         <div class="w-full px-4 mt-4">
-            <input v-model="height" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="Figure Height">
+            <input v-model="height" class="text-lg py-2 w-full shadow rounded-lg border-solid border border-theme-light" type="text" placeholder="Figure Height">
         </div>
         <div class="w-full px-4 mt-4">
-            <input v-if="type !== '3D'" required v-model="artist2D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="2D Artist">
+            <input v-if="type !== '3D'" required v-model="artist2D" class="text-lg py-2 w-full shadow rounded-lg border-solid border border-theme-light" type="text" placeholder="2D Artist">
         </div>
         <div class="w-full px-4 mt-4">
-            <input v-if="type !== '2D'" required v-model="artist3D" class="text-lg py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="3D Artist">
+            <input v-if="type !== '2D'" required v-model="artist3D" class="text-lg py-2 w-full shadow rounded-lg border-solid border border-theme-light" type="text" placeholder="3D Artist">
         </div>
         <div class="w-full px-4 mt-4">
             <label for="gradientFrom">Gradient Color Dark</label>
@@ -39,10 +39,14 @@
 <script>
 import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
+const Entities = require('html-entities').AllHtmlEntities;
+ 
+const entities = new Entities();
 
 export default {
     props: {
         type: String,
+        info: Object,
     },
     data() {
         return {
@@ -60,6 +64,15 @@ export default {
     mounted(){
         this.getCategories();
         this.getPrices();
+        if(this.info !== undefined){
+            this.height = entities.decode(this.info.height);
+            this.artist2D = entities.decode(this.info.artist2D);
+            this.artist3D = entities.decode(this.info.artist3D);
+            if(this.info.gradientFrom) this.gradientFrom = entities.decode(this.info.gradientFrom);
+            if(this.info.gradientTo) this.gradientTo = entities.decode(this.info.gradientTo);
+            this.category = this.info.categoryID;
+            this.price = this.info.priceID;
+        }
     },
     methods: {
         pickCategory: function(id){

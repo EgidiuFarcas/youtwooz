@@ -10,13 +10,13 @@
         <div class="w-full px-2">
             <ul class="flex border-b items-center justify-evenly">
                 <li @click="show = 'drafts'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'drafts'}">
-                    <a class="bg-white inline-block rounded-t py-2 px-4 text-theme-dark font-semibold" href="#">Drafts</a>
+                    <button class="bg-white inline-block rounded-t py-2 px-4 text-theme-dark font-semibold outline-none focus:outline-none">Drafts</button>
                 </li>
                 <li @click="show = 'pending'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'pending'}">
-                    <a class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold" href="#">Pending</a>
+                    <button class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold outline-none focus:outline-none">Pending</button>
                 </li>
                 <li @click="show = 'published'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'published'}">
-                    <a class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold" href="#">Published</a>
+                    <button class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold outline-none focus:outline-none">Published</button>
                 </li>
             </ul>
         </div>

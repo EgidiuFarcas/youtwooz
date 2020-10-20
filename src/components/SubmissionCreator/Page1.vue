@@ -1,7 +1,7 @@
 <template>
     <div class="transition-all duration-300">
         <div class="w-full px-4 mt-4">
-            <input v-model="name" class="text-xl py-2 w-full shadow rounded-lg border-solid border-2 border-theme-light" type="text" placeholder="Figure Name">
+            <input v-model="name" class="text-xl py-2 w-full shadow rounded-lg border-solid border border-theme-light" type="text" placeholder="Figure Name">
         </div>
         <div class="w-full px-4 mt-4">
             <div class="w-full flex flex-row">
@@ -19,6 +19,11 @@
 
 <script>
 export default {
+    props: {
+        eName: String,
+        eHasBox: Boolean,
+        eType: String
+    },
     data(){
         return {
             name: '',
@@ -26,5 +31,10 @@ export default {
             type: '',
         }
     },
+    mounted(){
+        if(this.eName !== undefined) this.name = this.eName;
+        if(this.eHasBox !== undefined) this.hasBox = this.eHasBox;
+        if(this.eType !== undefined) this.type = this.eType;
+    }
 }
 </script>

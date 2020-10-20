@@ -28,16 +28,25 @@
 <script>
 
 import Editor from '@tinymce/tinymce-vue'
+const Entities = require('html-entities').AllHtmlEntities;
+ 
+const entities = new Entities();
 
 export default {
     components: {
         'editor': Editor
+    },
+    props: {
+        eDescription: String
     },
     data() {
         return {
             description: ''
         }
     },
+    mounted(){
+        if(this.eDescription !== undefined) this.description = entities.decode(this.eDescription);
+    }
 }
 </script>
 

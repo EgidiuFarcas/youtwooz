@@ -25,6 +25,15 @@ class SubmissionController {
         return res.send({submissions: subs});
     }
 
+    static async getInfo(req, res) {
+        let submissionID = req.body.submissionID;
+        if(!submissionID) return res.status(400).send("submissionID not valid");
+
+        let sub = await SubmissionModel.get(submissionID);
+        if(!sub) return res.status(400).send('Submission not found');
+        return res.send(sub);
+    }
+
     static async stepOne(req, res){
         req.body.submitterID = req.userID;
         let {error} = stepOneValidation(req.body);

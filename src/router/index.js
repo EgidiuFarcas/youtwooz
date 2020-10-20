@@ -35,6 +35,11 @@ const routes = [
     beforeEnter: (to, from, next) => am.isAuthenticated(next)
   },
   {
+    path: '/edit-submission/:id', name: 'EditSubmission',
+    component: () => import('../views/EditSubmission.vue'),
+    beforeEnter: (to, from, next) => am.isAuthenticated(next)
+  },
+  {
     path: '/admin', name: 'Admin',
     component: () => import('../views/Admin.vue'),
     beforeEnter: (to, from, next) => am.isAdmin(next)

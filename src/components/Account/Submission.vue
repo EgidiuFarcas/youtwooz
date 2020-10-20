@@ -11,7 +11,7 @@
             <p>{{ info.name }} - {{ info.category }}</p>
             <p>{{ info.price }}</p>
             <div class="w-full flex my-4 items-center justify-evenly">
-                <button class="w-full mx-4 px-4 py-2 bg-black text-white border-solid shadow-md border-4 border-white hover:border-theme-light rounded-full outline-none focus:outline-none">Edit</button>
+                <button v-if="info.status !== 'pending'" @click="$router.push('/edit-submission/' + info._id)" class="w-full mx-4 px-4 py-2 bg-black text-white border-solid shadow-md border-4 border-white hover:border-theme-light rounded-full outline-none focus:outline-none">Edit</button>
                 <button @click="deleteSub(info._id)" class="w-full mx-4 px-4 py-2 bg-black text-white border-solid shadow-md border-4 border-white hover:border-theme-light rounded-full outline-none focus:outline-none">Delete</button>
             </div>
         </div>
