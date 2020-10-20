@@ -75,13 +75,11 @@ export default {
                         case 'draft': 
                             this.drafts.push(subs[i]);
                             break;
-                        case 'pending':
-                            this.pending.push(subs[i]);
-                            break;
                         case 'published':
                             this.published.push(subs[i]);
                             break;
                     }
+                    if(String(subs[i].status).includes('pending')) this.pending.push(subs[i]);
                 }
             })
             .catch(err => console.log(err.response));

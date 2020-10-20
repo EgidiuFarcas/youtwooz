@@ -83,7 +83,7 @@ export default {
                 },
                 data: {
                     'submissionID': this.submissionID,
-                    'status': 'pending',
+                    'status': 'pending automated review',
                     'statusMessage': 'Form Complete.'
                 }
             })
