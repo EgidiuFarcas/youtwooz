@@ -88,7 +88,7 @@ class AuthController {
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if(err) return res.sendStatus(403);
             let tokenUser = {
-                id: user._id,
+                id: user.id,
                 name: user.name,
                 email: user.email
             };
@@ -144,7 +144,7 @@ class AuthController {
     }
 
     static generateJWT(user){
-        return jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '30m'});
+        return jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1h'});
     }
 }
 

@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 //Connect to DB
 mongoose.connect(
     `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ewvie.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true}, 
+    { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}, 
     () => console.log('Connected to DB')
 );
 //App middleware
