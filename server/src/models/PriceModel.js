@@ -13,6 +13,10 @@ export default class PriceModel {
         return await Price.find();
     }
 
+    static async findID(id){
+        return await Price.findById(id);
+    }
+
     static async existsValue(price){
         let priceModel = await Price.findOne({amount: price});
         if(!priceModel) return false;

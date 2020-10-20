@@ -7,6 +7,15 @@ const entities = new Entities.AllHtmlEntities();
 
 class SubmissionController {
 
+    static async delete(req, res){
+        let submissionID = req.body.submissionID;
+        if(!submissionID) return res.status(400).send("submissionID not valid");
+
+        let sub = await SubmissionModel.get(submissionID);
+        if(!sub) return res.status(400).send('Submission not found');
+        await sub.delete();
+        return res.send('Submission Deleted.');
+    }
 
     static async getMine(req, res) {
         let submitterID = req.userID;

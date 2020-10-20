@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow-md rounded-lg w-full flex flex-col py-4 border-solid border-t-8 border-theme-dark">
+    <div class="shadow-md rounded-lg w-full flex flex-col py-4 border-solid border-t-8 border-theme-dark transition-all duration-300">
         <h1 class="text-2xl">My Figures</h1>
         <div class="my-4">
             <button @click="$router.push('/create-submission')" class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">
@@ -7,8 +7,30 @@
                 New Submission
             </button>
         </div>
-        <div class="w-full flex flex-col">
-            <submission v-for="sub in submissions" :key="sub.id" :info="sub"></submission>
+        <div class="w-full px-2">
+            <ul class="flex border-b items-center justify-evenly">
+                <li @click="show = 'drafts'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'drafts'}">
+                    <a class="bg-white inline-block rounded-t py-2 px-4 text-theme-dark font-semibold" href="#">Drafts</a>
+                </li>
+                <li @click="show = 'pending'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'pending'}">
+                    <a class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold" href="#">Pending</a>
+                </li>
+                <li @click="show = 'published'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'published'}">
+                    <a class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold" href="#">Published</a>
+                </li>
+            </ul>
+        </div>
+        <div v-if="show === 'drafts'" class="w-full flex flex-col p-2">
+            <p v-if="drafts.length === 0">You have no drafts.</p>
+            <submission @removedSubmission="drafts = drafts.filter(e => e._id !== $event);" v-for="sub in drafts" :key="sub.id" :info="sub"></submission>
+        </div>
+        <div v-if="show === 'pending'" class="w-full flex flex-col p-2">
+            <p v-if="pending.length === 0">You have no pending submissions.</p>
+            <submission @removedSubmission="pending = pending.filter(e => e._id !== $event);" v-for="sub in pending" :key="sub.id" :info="sub"></submission>
+        </div>
+        <div v-if="show === 'published'" class="w-full flex flex-col p-2">
+            <p v-if="published.length === 0">You have no published submissions.</p>
+            <submission @removedSubmission="published = published.filter(e => e._id !== $event);" v-for="sub in published" :key="sub.id" :info="sub"></submission>
         </div>
     </div>
 </template>
@@ -24,7 +46,10 @@ export default {
     },
     data() {
         return {
-            submissions: []
+            drafts: [],
+            pending: [],
+            published: [],
+            show: 'pending',
         }
     },
     mounted() {
@@ -39,10 +64,55 @@ export default {
                     'Authorization': this.$cookies.get('access-token')
                 }
             })
-            .then(res => {
-                this.submissions = res.data.submissions;
+            .then(async res => {
+                let subs = res.data.submissions;
+                console.log(subs);
+                for(let i = 0; i < subs.length; i++){
+                    if(subs[i].priceID) subs[i].price = await this.getPrice(subs[i].priceID);
+                    if(subs[i].categoryID) subs[i].category = await this.getCategory(subs[i].categoryID);
+
+                    switch(subs[i].status){
+                        case 'draft': 
+                            this.drafts.push(subs[i]);
+                            break;
+                        case 'pending':
+                            this.pending.push(subs[i]);
+                            break;
+                        case 'published':
+                            this.published.push(subs[i]);
+                            break;
+                    }
+                }
             })
             .catch(err => console.log(err.response));
+        },
+        async getPrice(id){
+            let price = undefined;
+            await axios({
+                method: "POST",
+                url: apiURL + "/api/price/get",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token')
+                },
+                data: {
+                    'priceID': id
+                }
+            }).then(res => price = res.data.value);
+            return price;
+        },
+        async getCategory(id){
+            let categ = undefined;
+            await axios({
+                method: "POST",
+                url: apiURL + "/api/category/get",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token')
+                },
+                data: {
+                    'categoryID': id
+                }
+            }).then(res => categ = res.data.name);
+            return categ;
         }
     }
 }

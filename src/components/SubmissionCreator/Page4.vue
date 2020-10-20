@@ -39,11 +39,11 @@ export default {
     },
     data(){
         return {
-            concept2D: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
+            concept2D: '/assets/addimage.png',
             concept2DFileUploaded: false,
-            concept3D: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
+            concept3D: '/assets/addimage.png',
             concept3DFileUploaded: false,
-            conceptBox: 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg',
+            conceptBox: '/assets/addimage.png',
             conceptBoxFileUploaded: false,
         }
     },
@@ -71,7 +71,7 @@ export default {
             })
             .then(() => this.concept2DFileUploaded = true)
             .catch(err =>{
-                this.concept2D = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                this.concept2D = '/assets/addimage.png';
                 alert(err.response.data);
             });
         },
@@ -98,7 +98,7 @@ export default {
             })
             .then(() => this.concept3DFileUploaded = true)
             .catch(err => {
-                this.concept3D = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                this.concept3D = '/assets/addimage.png';
                 alert(err.response.data);
             });
         },
@@ -125,7 +125,7 @@ export default {
             })
             .then(() => this.conceptBoxFileUploaded = true)
             .catch(err => {
-                this.conceptBox = 'https://icon-library.com/images/add-image-icon-png/add-image-icon-png-15.jpg';
+                this.conceptBox = '/assets/addimage.png';
                 alert(err.response.data);
             });
         }

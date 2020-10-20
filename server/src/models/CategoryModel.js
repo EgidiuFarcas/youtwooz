@@ -13,6 +13,10 @@ export default class CategoryModel {
         return await Category.find();
     }
 
+    static async findID(id){
+        return await Category.findById(id);
+    }
+
     static async existsValue(name){
         let categoryModel = await Category.findOne({name: name});
         if(!categoryModel) return false;
