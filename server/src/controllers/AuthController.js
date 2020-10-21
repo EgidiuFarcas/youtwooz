@@ -58,7 +58,7 @@ class AuthController {
             }
             let savedUser = await UserModel.create(data);
             
-            Mail(savedUser.email, savedUser._id, savedUser.verifyToken, "localhost:8080");
+            Mail(savedUser.email, savedUser._id, savedUser.verifyToken, "ytwb.boredproject.com");
 
             res.send({userID: savedUser._id });
         }catch(err){

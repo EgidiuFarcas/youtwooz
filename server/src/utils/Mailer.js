@@ -15,6 +15,7 @@ const auth = {
 const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
 export default function send(email, userID, token, domain) {
+    console.log(process.env.MAILGUN_API_KEY,process.env.MAILGUN_DOMAIN);
     console.log("Email sending to " + email);
     nodemailerMailgun.sendMail({
         from: 'noreply@youtwooz.com',
