@@ -5,7 +5,11 @@ import { loginValidation, registerValidation } from '../validators/validation.js
 import jwt from 'jsonwebtoken';
 import RefreshTokenModel from '../models/RefreshTokenModel.js';
 import Mail from '../utils/Mailer.js';
+import {dirname} from 'path';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class AuthController {
     static async login(req, res) {
@@ -110,7 +114,7 @@ class AuthController {
         }
         let user = await UserModel.findByID(req.userID);
         if(user.pfp !== null){
-            fs.unlinkSync('.'+user.pfp);
+            fs.unlinkSync(path.link(__dirname, '../../'+user.pfp));
         }
         user.pfp = fullPath;
         try{
