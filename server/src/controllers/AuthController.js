@@ -114,7 +114,11 @@ class AuthController {
         }
         let user = await UserModel.findByID(req.userID);
         if(user.pfp !== null){
-            fs.unlinkSync(path.join(__dirname, '../../'+user.pfp));
+            try{
+                fs.unlinkSync(path.join(__dirname, '../../'+user.pfp));
+            }catch(err){
+                console.log(err);
+            }
         }
         user.pfp = fullPath;
         try{
