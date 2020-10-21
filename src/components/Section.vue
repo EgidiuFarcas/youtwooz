@@ -15,9 +15,9 @@
                 </div>
                 
                 <div class="Article_content" id="products-live">
-                    <div class="Showcase  Showcase--center-items" data-collection-list="coming-soon">
+                    <div v-if="submissions" class="Showcase  Showcase--center-items" data-collection-list="coming-soon">
                         <!-- Here go the items -->
-                        <ProductSlot :faded="faded" :hidden="hidden" v-for="i in [0,1,2]" :key="i" />
+                        <ProductSlot :faded="faded" :hidden="hidden" v-for="sub in submissions" :key="sub._id" :info="sub"/>
                     </div>
                 </div>
             </div>
@@ -32,6 +32,6 @@ export default {
     components: {
         ProductSlot
     },
-    props: ['title', 'description', 'hot', 'faded', 'hidden']
+    props: ['title', 'description', 'hot', 'faded', 'hidden', 'submissions']
 }
 </script>

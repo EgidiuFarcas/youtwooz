@@ -16,6 +16,8 @@ router.post('/new/three', [verifyJWT], (req, res) => SubmissionController.stepTh
 router.post('/new/image', [verifyJWT, upload.single("file")], (req, res) => SubmissionController.setImage(req, res));
 router.post('/status', [verifyJWT], (req, res) => SubmissionController.setStatus(req, res));
 router.post('/get/mine', [verifyJWT], (req, res) => SubmissionController.getMine(req, res));
+router.post('/get/published', [verifyJWT], (req, res) => SubmissionController.getPublished(req, res));
+router.post('/get/pending', [verifyJWT], (req, res) => SubmissionController.getPending(req, res));
 router.post('/info', [verifyJWT], (req, res) => SubmissionController.getInfo(req, res));
 router.post('/delete', [verifyJWT], (req, res) => SubmissionController.delete(req, res));
 

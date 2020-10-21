@@ -29,6 +29,10 @@ class SubmissionModel {
     static async find(conditions){
         return await Submission.find(conditions);
     }
+    
+    static async findAmount(conditions, amount){
+        return await Submission.find(conditions).sort('-date').limit(amount);
+    }
 
     static async delete(id){
         return await Submission.findByIdAndDelete(id);

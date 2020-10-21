@@ -26,6 +26,18 @@ class SubmissionController {
         return res.send({submissions: subs});
     }
 
+    static async getPublished(req, res){
+        if(!req.body.amount) return res.status(400).send("Amount not provided");
+        let subs = await SubmissionModel.findAmount({status: 'published'}, req.body.amount);
+        return res.send({submissions: subs});
+    }
+
+    static async getPending(req, res){
+        if(!req.body.amount) return res.status(400).send("Amount not provided");
+        let subs = await SubmissionModel.findAmount({status: /pending/}, req.body.amount);
+        return res.send({submissions: subs});
+    }
+
     static async getInfo(req, res) {
         let submissionID = req.body.submissionID;
         if(!submissionID) return res.status(400).send("submissionID not valid");
