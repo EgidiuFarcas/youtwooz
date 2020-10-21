@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 font-raleway text-center">
+    <div class="p-4 font-raleway text-center mx-auto md:w-3/4 lg:w-1/2 xl:w-2/4 2xl:w-1/3">
         <p class="w-full text-left">
             <span class="text-lg underline"><router-link to="/account">Account</router-link></span>
             <span class="float-right text-lg underline"><router-link to="/">Home</router-link></span>

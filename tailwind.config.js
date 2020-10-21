@@ -7,6 +7,9 @@ module.exports = {
       },
       fontFamily: {
         'raleway': ['Raleway', 'sans-serif']
+      },
+      screens: {
+        '2xl': '1600px'
       }
     }
   },

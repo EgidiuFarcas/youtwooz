@@ -2,14 +2,14 @@
     <div class="text-left shadow-md rounded-lg w-full flex flex-col p-4 border-solid border-t-8 border-theme-dark">
         Manage Categories
         <div class="flex flex-row w-full mt-1">
-            <input v-model="newCategory" type="text" placeholder="New Price Option" class="px-4 py-2 w-full border-solid border-2 border-theme-light rounded-l-lg shadow">
-            <button @click="addCategory" class="px-4 py-2 transition-all duration-300 border-solid border-2 border-l-0 border-theme-light rounded-r-lg shadow outline-none focus:outline-none hover:bg-gray-200 focus:bg-theme-light focus:text-white">
+            <input v-model="newCategory" type="text" placeholder="New Price Option" class="px-4 py-2 w-full border-solid border border-theme-light rounded-l-lg shadow">
+            <button @click="addCategory" class="px-4 py-2 transition-all duration-300 border-solid border border-l-0 border-theme-light rounded-r-lg shadow outline-none focus:outline-none hover:bg-gray-200 focus:bg-theme-light focus:text-white">
                 Add</button>
         </div>
         <div class="flex flex-col w-full mt-2 overflow-y-scroll" style="max-height: 15rem">
             <div v-for="categ in categories" :key="categ.id" class="flex flex-row w-full items-center bg-gray-200 pl-4 rounded-lg my-1">
                 <p class="w-full text-left">{{categ.name}}</p>
-                <button @click="deleteCategory(categ.id)" class="px-2 py-1 bg-white hover:bg-gray-300 focus:bg-theme-light rounded-lg border-solid border-2 border-theme-light">Delete</button>
+                <button @click="deleteCategory(categ.id)" class="px-2 py-1 bg-white hover:bg-gray-300 focus:bg-theme-light rounded-lg border-solid border border-theme-light">Delete</button>
             </div>
         </div>
     </div>

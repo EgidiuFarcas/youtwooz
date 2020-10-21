@@ -348,7 +348,6 @@ export default {
         if(this.info.priceID) this.info.price = await this.getPrice(this.info.priceID);
         if(this.info.categoryID) this.info.category = await this.getCategory(this.info.categoryID);
         this.fetched = true;
-        console.log("loaded");
       })
       .catch(err => console.log(err.response));
     },
