@@ -5,8 +5,9 @@
             <span class="float-right text-lg underline"><router-link to="/">Home</router-link></span>
         </p>
         <h1 class="text-2xl mb-2 font-light"> Admin Panel</h1>
+        <SubmissionManagement class="mb-4"/>
         <PricesManagement class="mb-4" />
-        <CategoryManagement />
+        <CategoryManagement class="mb-4"/>
     </div>
 </template>
 
@@ -14,10 +15,11 @@
 
 import PricesManagement from '@/components/Admin/PricesManagement.vue'
 import CategoryManagement from '@/components/Admin/CategoryManagement.vue'
+import SubmissionManagement from '@/components/Admin/SubmissionManagement.vue'
 
 export default {
     components: {
-        PricesManagement, CategoryManagement
+        PricesManagement, CategoryManagement, SubmissionManagement
     }
 }
 </script>

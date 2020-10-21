@@ -20,5 +20,6 @@ router.post('/get/published', (req, res) => SubmissionController.getPublished(re
 router.post('/get/pending', (req, res) => SubmissionController.getPending(req, res));
 router.post('/info', (req, res) => SubmissionController.getInfo(req, res));
 router.post('/delete', [verifyJWT], (req, res) => SubmissionController.delete(req, res));
+router.post('/query', [verifyJWT], (req, res) => SubmissionController.query(req, res));
 
 export default router;

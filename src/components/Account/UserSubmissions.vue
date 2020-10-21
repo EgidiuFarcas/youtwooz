@@ -13,7 +13,7 @@
                     <button class="bg-white inline-block rounded-t py-2 px-4 text-theme-dark font-semibold outline-none focus:outline-none">Drafts</button>
                 </li>
                 <li @click="show = 'pending'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'pending'}">
-                    <button class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold outline-none focus:outline-none">Pending</button>
+                    <button class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold outline-none focus:outline-none">Pending/Rejected</button>
                 </li>
                 <li @click="show = 'published'" class="mr-1 border-0 transition-all duration-300" :class="{'border-b border-theme-light': show === 'published'}">
                     <button class="bg-white inline-block py-2 px-4 text-theme-light hover:text-theme-dark font-semibold outline-none focus:outline-none">Published</button>
@@ -73,6 +73,9 @@ export default {
                     switch(subs[i].status){
                         case 'draft': 
                             this.drafts.push(subs[i]);
+                            break;
+                        case 'rejected': 
+                            this.pending.push(subs[i]);
                             break;
                         case 'published':
                             this.published.push(subs[i]);

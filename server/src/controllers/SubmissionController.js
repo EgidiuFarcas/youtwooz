@@ -8,6 +8,13 @@ const entities = new Entities.AllHtmlEntities();
 
 class SubmissionController {
 
+    static async query(req, res){
+        if(!req.body.query) return res.status(400).send('Query not given');
+
+        let sub = await SubmissionModel.find({name: { $regex: '.*' + req.body.query + '.*' }, status: 'published'});
+        return res.send(sub);
+    }
+
     static async delete(req, res){
         let submissionID = req.body.submissionID;
         if(!submissionID) return res.status(400).send("submissionID not valid");
