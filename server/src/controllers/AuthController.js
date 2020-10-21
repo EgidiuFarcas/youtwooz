@@ -143,7 +143,7 @@ class AuthController {
             email: user.email,
             pfp: user.pfp,
             points: user.points,
-            role: user.role,
+            roleID: user.role,
         }
         res.send(userInfo);
     }

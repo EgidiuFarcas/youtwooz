@@ -8,7 +8,7 @@
         <Section title="Live now!" :submissions="published" hot="true" />
 
         <!-- Coming soon -->
-        <Section title="Upcoming Drops" :submissions="pending" faded="true" hidden="true" />
+        <Section v-if="pending.length > 0" title="Upcoming Drops" :submissions="pending" faded="true" hidden="true" />
 
         <!-- Sold Out -->
         <!-- <Section title="Past Drops" faded="true" description="Gone forever!" /> -->

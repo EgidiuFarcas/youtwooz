@@ -277,8 +277,8 @@
                                 <div class="Product-detail-line_label">
                                   Submitted By
                                 </div>
-                                <div class="Product-detail-line_value">
-                                  {{info.submitter.name}}
+                                <div class="Product-detail-line_value py-1">
+                                  {{info.submitter.name}} <span class="text-xs text-white rounded-md px-1 py-1" :style="{'background-color': info.submitter.roleColor}"> • {{info.submitter.role}}</span>
                                 </div>
                               </div>
                             </div>
@@ -330,6 +330,7 @@ export default {
   },
   async mounted(){
     await this.fetchData();
+    console.log(this.info.submitter.role);
   },
   methods: {
     async fetchData(){
@@ -347,6 +348,7 @@ export default {
         this.info.submitter = await this.getUser(this.info.submitterID);
         if(this.info.priceID) this.info.price = await this.getPrice(this.info.priceID);
         if(this.info.categoryID) this.info.category = await this.getCategory(this.info.categoryID);
+        await this.loadUserRole(this.info.submitter.roleID);
         this.fetched = true;
       })
       .catch(err => console.log(err.response));
@@ -365,6 +367,18 @@ export default {
       }).then(res => user = res.data);
       return user
     },
+    async loadUserRole(roleID){
+           await axios({
+                method: "POST",
+                url: apiURL + "/api/role/get",
+                data: {
+                    'roleID': roleID
+                }
+            }).then(res => {
+                this.info.submitter.role = res.data.name;
+                this.info.submitter.roleColor = res.data.color;
+            }).catch(err => console.log(err));
+        },
     async getPrice(id){
             let price = undefined;
             await axios({

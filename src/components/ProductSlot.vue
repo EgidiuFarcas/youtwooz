@@ -3,7 +3,7 @@
       <router-link
         :to="(hidden) ? '/' : '/products/'+info._id"
         class="ProductCard " :class="{'ProductCard--faded': faded == 'true'}"
-        :style="'--env-keyColor: '+info.gradientTo+'88;--env-gradientStops: '+info.gradientFrom+' 0%, '+info.gradientTo+' 100%;'"
+        :style="'--env-keyColor: '+info.gradientTo+'44;--env-gradientStops: '+info.gradientFrom+' 0%, '+info.gradientTo+' 100%;'"
       >
         <div class="ProductCard_media">
           <div class="ProductCard_media_inner">

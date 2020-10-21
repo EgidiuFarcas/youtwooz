@@ -14,26 +14,24 @@
 
           <div class="Hero_holders Hero_holders--duo">
             <div class="Hero_holder Hero_holder--1 Hero_holder--mizkif">
-              <div class="Hero_holder_inner">
+              <div class="Hero_holder_inner" style="background-image: url('https://media.discordapp.net/attachments/707136134324420658/768521279115886692/1603299952980.png?width=867&height=488')">
                 <div class="Hero_holder_content">
                   <div class="HeroTooz HeroTooz--mizkif">
                     <div class="HeroTooz_name" title="">
                       <div
                         class="HeroTooz_name_inner HeroTooz_name_inner--small"
                       >
-                        Mizkif
+                        PeanutButterArthur
                       </div>
                     </div>
 
                     <a
                       class="HeroTooz_link"
-                      href="/products/mizkif"
-                      data-modal-open="/products/mizkif"
-                      data-modal-template="product-mizkif"
+                      href="#"
                     >
                       <img
                         class="HeroTooz_link_img"
-                        src="//cdn.shopify.com/s/files/1/0160/2840/1712/t/2/assets/mizkif-tooz.png?v=8201687372816423234"
+                        src="https://media.discordapp.net/attachments/707136134324420658/766304908470517780/1602768068417.png?width=543&height=918"
                         alt=""
                         height="100"
                       />
@@ -46,26 +44,25 @@
             </div>
 
             <div class="Hero_holder Hero_holder--2 Hero_holder--bordie">
-              <div class="Hero_holder_inner">
+              <div class="Hero_holder_inner" 
+                style="background-position:center;background-image: url('https://media.discordapp.net/attachments/707136134324420658/768527100058796082/1603301525501.png?width=867&height=488')">
                 <div class="Hero_holder_content">
                   <div class="HeroTooz HeroTooz--bordie">
                     <div class="HeroTooz_name" title="">
                       <div
                         class="HeroTooz_name_inner HeroTooz_name_inner--small"
                       >
-                        Bordie
+                        SAD SCHLATT
                       </div>
                     </div>
 
                     <a
                       class="HeroTooz_link"
-                      href="/products/bordie"
-                      data-modal-open="/products/bordie"
-                      data-modal-template="product-bordie"
+                      href="#"
                     >
                       <img
                         class="HeroTooz_link_img"
-                        src="//cdn.shopify.com/s/files/1/0160/2840/1712/t/2/assets/bordie-tooz.png?v=13842904603205714673"
+                        src="https://media.discordapp.net/attachments/707136134324420658/766304908139560980/1602768888729.png?width=518&height=918"
                         alt=""
                         height="100"
                       />
@@ -77,120 +74,7 @@
               </div>
             </div>
 
-            <div class="Hero_holders_card">
-              <div class="HeroCard HeroCard--mizkif_bordie HeroCard--activated">
-                <div class="HeroCard_inner">
-                  <div class="HeroCard_content">
-                    <div
-                      class="HeroCard_content_subtitle HeroCard_content_subtitle--accent"
-                    >
-                      Limited Edition
-                    </div>
-                    <div class="HeroCard_content_title">
-                      Available now!
-                    </div>
-                    <div class="HeroCard_content_subtitle">
-                      Going fast
-                    </div>
-                  </div>
-
-                  <div class="HeroCard_form">
-                    <form
-                      class="HeroCard_subscribe form"
-                      data-form-submitter="https://access.youtooz.com/email_notifications"
-                      data-form-type="multipart"
-                      data-form-loading="form--loading"
-                      data-form-field-error="form_field--error"
-                      data-state-switcher=""
-                    >
-                      <input
-                        type="hidden"
-                        name="source"
-                        value="mizkif_bordie_header"
-                      />
-
-                      <div
-                        class="HeroCard_subscribe_inner"
-                        data-state-default=""
-                        data-state-current=""
-                      >
-                        <div class="HeroCard_subscribe_field">
-                          <label class="visually-hidden" for="inp-header-email"
-                            >Email to subscribe</label
-                          >
-                          <input
-                            required=""
-                            type="email"
-                            id="inp-header-email"
-                            name="email"
-                            class="HeroCard_subscribe_field_input"
-                            placeholder="Enter email to stay in touch"
-                          />
-                        </div>
-                        <div class="HeroCard_subscribe_action">
-                          <button
-                            type="submit"
-                            class="HeroCard_subscribe_action_button"
-                          >
-                            <i data-mi="send"></i>
-                            <span class="visually-hidden">Subscribe</span>
-                          </button>
-                        </div>
-                      </div>
-
-                      <template
-                        style="display: none"
-                        class="HeroCard_subscribe_inner"
-                        data-state-option="submit-success"
-                      >
-                        <div
-                          class="HeroCard_subscribe_result HeroCard_subscribe_result--success"
-                        >
-                          <div class="HeroCard_subscribe_result_inner">
-                            Noice! Check your email to confirm.
-                          </div>
-                        </div>
-                        <div class="HeroCard_subscribe_action">
-                          <button
-                            disabled=""
-                            class="HeroCard_subscribe_action_button"
-                          >
-                            <i data-mi="check"></i>
-                            <span class="visually-hidden">Success!</span>
-                          </button>
-                        </div>
-                      </template>
-
-                      <template
-                        style="display: none"
-                        class="HeroCard_subscribe_inner"
-                        data-state-option="submit-fail"
-                      >
-                        <div
-                          class="HeroCard_subscribe_result HeroCard_subscribe_result--fail"
-                        >
-                          <div class="HeroCard_subscribe_result_inner">
-                            Oops! Something went wrong.
-                          </div>
-                        </div>
-                        <div class="HeroCard_subscribe_action">
-                          <a
-                            href="/"
-                            data-state-switch-trigger="default"
-                            class="HeroCard_subscribe_action_button"
-                          >
-                            <i data-mi="refresh"></i>
-                            <span class="visually-hidden">Try again?</span>
-                          </a>
-                        </div>
-                      </template>
-                    </form>
-                  </div>
-                </div>
-
-                <div class="HeroCard_bg"></div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </header>
@@ -271,5 +155,6 @@
 </template>
 
 <script>
-export default {};
+export default {
+};
 </script>
