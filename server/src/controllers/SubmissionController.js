@@ -1,6 +1,7 @@
 import Entities from 'html-entities';
 import fs from "fs";
 import SubmissionModel from '../models/SubmissionModel.js';
+import AutoReview from '../functions/AutoReview.js';
 import { stepOneValidation, stepTwoValidation, stepThreeValidation, setImageValidation, setStatusValidation } from '../validators/submissionValidation.js';
 
 const entities = new Entities.AllHtmlEntities();
@@ -106,6 +107,9 @@ class SubmissionController {
             status: req.body.status,
             statusMessage: req.body.statusMessage
         });
+        if(req.body.status === 'pending automated review'){
+            AutoReview.check(req.body.submissionID);
+        }
         if(!sub) return res.status(400).send("Something went wrong");
         return res.send(sub);
     }

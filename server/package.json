@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --trace-deprecation src/index.js",
+    "start": "clear && node --trace-deprecation src/index.js",
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
@@ -23,7 +23,8 @@
     "multer": "^1.4.2",
     "nodemailer": "^6.4.14",
     "nodemailer-mailgun-transport": "^2.0.1",
-    "rand-token": "^1.0.1"
+    "rand-token": "^1.0.1",
+    "sharp": "^0.26.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"

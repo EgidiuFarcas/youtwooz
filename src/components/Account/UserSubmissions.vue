@@ -66,7 +66,6 @@ export default {
             })
             .then(async res => {
                 let subs = res.data.submissions;
-                console.log(subs);
                 for(let i = 0; i < subs.length; i++){
                     if(subs[i].priceID) subs[i].price = await this.getPrice(subs[i].priceID);
                     if(subs[i].categoryID) subs[i].category = await this.getCategory(subs[i].categoryID);
