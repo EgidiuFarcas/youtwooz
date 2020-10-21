@@ -16,6 +16,7 @@ router.post('/token', (req, res) => AuthController.regenToken(req, res));
 router.post('/verify', (req, res) => AuthController.verifyAccount(req, res));
 
 router.post('/info', verifyJWT, (req, res) => AuthController.getUserInfo(req, res));
+router.post('/user', (req, res) => AuthController.getUser(req, res));
 router.post('/pfp', [verifyJWT, upload.single("file")], (req, res) => AuthController.uploadProfilePicture(req, res));
 router.delete('/logout', verifyJWT, (req, res) => AuthController.logout(req, res));
 

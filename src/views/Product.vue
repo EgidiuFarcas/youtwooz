@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="fetched">
     <a class="skip-link visually-hidden" href="#main-content"
       >Skip to content</a>
     <main class="Layout_content" role="main" id="main-content">
@@ -8,7 +8,7 @@
           <section data-section-id="product" data-section-type="product">
             <div
               class="ModalWrapper ModalWrapper--with-cart ModalWrapper--expand-on-small"
-              style="--env-keyColor: #DEF3FD;--env-gradientStops: #9393C6 0%, #99C3E5 100%;">
+              :style="'--env-keyColor: '+info.gradientTo+'88;--env-gradientStops: '+info.gradientFrom+' 0%, '+info.gradientTo+' 100%;'">
               <div class="ModalWrapper_overlay" data-modal-close="<"></div>
               <div class="ModalWrapper_inner" data-scroll-lock-scrollable="">
                 <div class="ModalWrapper_box" data-gallery="">
@@ -45,7 +45,7 @@
                               data-gallery-current="14621150085193"
                             >
                               <img
-                                src="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_characterai_rb-min.png?v=1601690078"
+                                :src="apiURL + ((info.type === 1) ? info.image3D : info.image2D)"
                                 alt="Mizkif"
                                 draggable="false"
                               />
@@ -55,35 +55,46 @@
                             class="ProductGallery_thumbs"
                             data-drag-scroller=""
                           >
-                            <li
-                              class="ProductGallery_thumbs_item active"
+                          <li v-if="info.image3D"
+                              class="ProductGallery_thumbs_item" :class="{'active': info.type === 1}"
                               data-gallery-preview="14621150085193"
-                              data-gallery-source="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_characterai_rb-min.png?v=1601690078"
-                            >
+                              :data-gallery-source="apiURL + info.image3D">
                               <a
                                 class="ProductGallery_thumbs_thumb"
-                                href="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_characterai_rb-min.png?v=1601690078"
-                                target="_blank"
-                              >
+                                :href="apiURL + info.image3D"
+                                target="_blank">
                                 <img
-                                  src="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_characterai_rb-min_x200.png?v=1601690078"
+                                  :src="apiURL + info.image3D"
                                   alt="Mizkif"
-                                  draggable="false"
-                                />
+                                  draggable="false"/>
                               </a>
                             </li>
-                            <li
+                            <li v-if="info.image2D"
+                              class="ProductGallery_thumbs_item" :class="{'active': info.type !== 1}"
+                              data-gallery-preview="14621150085193"
+                              :data-gallery-source="apiURL + info.image2D">
+                              <a
+                                class="ProductGallery_thumbs_thumb"
+                                :href="apiURL + info.image2D"
+                                target="_blank">
+                                <img
+                                  :src="apiURL + info.image2D"
+                                  alt="Mizkif"
+                                  draggable="false"/>
+                              </a>
+                            </li>
+                            <li v-if="info.imageBox"
                               class="ProductGallery_thumbs_item"
                               data-gallery-preview="14621150838857"
-                              data-gallery-source="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_box_final_1200.jpg?v=1601690100"
+                              :data-gallery-source="apiURL + info.imageBox"
                             >
                               <a
                                 class="ProductGallery_thumbs_thumb"
-                                href="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_box_final_1200.jpg?v=1601690100"
+                                :href="apiURL + info.imageBox"
                                 target="_blank"
                               >
                                 <img
-                                  src="//cdn.shopify.com/s/files/1/0160/2840/1712/products/mizkif_box_final_1200_x200.jpg?v=1601690100"
+                                  :src="apiURL + info.imageBox"
                                   alt="Mizkif"
                                   draggable="false"
                                 />
@@ -100,16 +111,16 @@
                         >
                           <div class="Product-header">
                             <div class="Product-header_left">
-                              <div class="Product-brand" style="float:left;">Streamer</div>
+                              <div class="Product-brand text-left">{{info.category}}</div>
                               <div class="Product-name ">
-                                Mizkif
+                                {{info.name}}
                               </div>
                             </div>
 
                             <div class="Product-header_right">
                               <div class="Product-price">
                                 <span class="Product-price_current ">
-                                  $29,99 USD
+                                  {{info.price}}
                                 </span>
                               </div>
                             </div>
@@ -211,8 +222,8 @@
                           </form>
 
                           <div class="Product-wait_for_it">
-                            This is a pre-order. It&nbsp;will&nbsp;ship:
-                            <strong>Feb 5-12</strong>
+                            This is not an order. It&nbsp;will&nbsp;ship:
+                            <strong>SOMETIME SOON &trade;</strong>
 
                             <div
                               class="Product-wait_for_it-and_more"
@@ -224,19 +235,19 @@
                           </div>
                           <div class="Product-infoline">
                             <span class="Product-infoline_msg"
-                              >Free international shipping</span
+                              >NO international shipping</span
                             >
                             <span class="Product-infoline_msg"
-                              >Free international shipping</span
+                              >NO international shipping</span
                             >
                             <span class="Product-infoline_msg"
-                              >Free international shipping</span
+                              >NO international shipping</span
                             >
                             <span class="Product-infoline_msg"
-                              >Free international shipping</span
+                              >NO international shipping</span
                             >
                             <span class="Product-infoline_msg"
-                              >Free international shipping</span
+                              >NO international shipping</span
                             >
                           </div>
 
@@ -247,85 +258,44 @@
                                   Height
                                 </div>
                                 <div class="Product-detail-line_value">
-                                  4.9"
+                                  {{info.height}}
                                 </div>
                               </div>
                             </div>
                             <div class="Product-details_item">
                               <div class="Product-detail-line">
                                 <div class="Product-detail-line_label">
-                                  Release
+                                  2D Artist
                                 </div>
                                 <div class="Product-detail-line_value">
-                                  10/13
+                                  {{(info.artist2D) ? info.artist2D : "NONE"}}
                                 </div>
                               </div>
                             </div>
                             <div class="Product-details_item">
                               <div class="Product-detail-line">
                                 <div class="Product-detail-line_label">
-                                  Colorway
+                                  Submitted By
                                 </div>
                                 <div class="Product-detail-line_value">
-                                  Eggventures
+                                  {{info.submitter.name}}
                                 </div>
                               </div>
                             </div>
                             <div class="Product-details_item">
                               <div class="Product-detail-line">
                                 <div class="Product-detail-line_label">
-                                  Ships
+                                  3D Artist
                                 </div>
                                 <div class="Product-detail-line_value">
-                                  Feb 5-12
+                                  {{(info.artist3D) ? info.artist3D : "NONE"}}
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          <div class="Product-description content">
-                            <h2>The Collectible</h2>
-
-                            <p>
-                              I love every second of it. Mizkif is now available
-                              in collectible form, wearing a black headset and
-                              purple hoodie with his name stamped in the center.
-                              While waving, he holds a classic game in his hand.
-                              He wears white socks with black hypebeast
-                              sneakers, while a cute white and brown bunny
-                              stands gently on his shoe. His window box contains
-                              a number of Egg styled Mizkif illustrations set
-                              within a gamified world. This collectible ships in
-                              a matte, embossed, protective outer sleeve.
-                            </p>
-                            <div
-                              class="twitter-tweet twitter-tweet-rendered"
-                              style="display: flex; max-width: 550px; width: 100%; margin-top: 10px; margin-bottom: 10px;"
-                            >
-                              <iframe
-                                id="twitter-widget-0"
-                                scrolling="no"
-                                frameborder="0"
-                                allowtransparency="true"
-                                allowfullscreen="true"
-                                class=""
-                                style="position: static; visibility: visible; width: 550px; height: 656px; display: block; flex-grow: 1;"
-                                title="Twitter Tweet"
-                                src="https://platform.twitter.com/embed/index.html?dnt=false&amp;embedId=twitter-widget-0&amp;frame=false&amp;hideCard=false&amp;hideThread=false&amp;id=1091896269004591104&amp;lang=en&amp;origin=https%3A%2F%2Fyoutooz.com%2Fproducts%2Fmizkif&amp;siteScreenName=youtooz&amp;theme=light&amp;widgetsVersion=ed20a2b%3A1601588405575&amp;width=550px"
-                                data-tweet-id="1091896269004591104"
-                              ></iframe>
-                            </div>
-
-                            <h3>About Mizkif</h3>
-
-                            <p>
-                              Matthew Rinaudo, also known as Mizkif, is a Twitch
-                              streamer living in the United States of America.
-                              His goal was to make people laugh, originally
-                              hoping to do so through social media. After
-                              finding livestreaming, Mizkif has grown to be the
-                              favorite creator of thousands.
-                            </p>
+                          <div v-html="info.description" class="Product-description content">
+                            
                           </div>
                         </div>
                       </div>
@@ -342,7 +312,88 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+import {apiURL} from '@/assets/variables.js';
+const Entities = require('html-entities').AllHtmlEntities;
+ 
+const entities = new Entities();
+
 export default {
   components: {},
+  data(){
+    return {
+      info: null,
+      fetched: false,
+      apiURL: apiURL
+    }
+  },
+  async mounted(){
+    await this.fetchData();
+  },
+  methods: {
+    async fetchData(){
+      await axios({
+        method: "post",
+        url: apiURL + "/api/submission/info",
+        data: {
+          'submissionID': this.$route.params.id
+        }
+      })
+      .then(async res => {
+        this.info = res.data;
+        this.info.description = entities.decode(this.info.description);
+        this.info.height = entities.decode(this.info.height);
+        this.info.submitter = await this.getUser(this.info.submitterID);
+        if(this.info.priceID) this.info.price = await this.getPrice(this.info.priceID);
+        if(this.info.categoryID) this.info.category = await this.getCategory(this.info.categoryID);
+        this.fetched = true;
+        console.log("loaded");
+      })
+      .catch(err => console.log(err.response));
+    },
+    async getUser(id){
+      let user = undefined;
+      await axios({
+        method: "POST",
+        url: apiURL + "/api/auth/user",
+        headers: {
+          'Authorization': this.$cookies.get('access-token')
+        },
+        data: {
+          'userID': id
+        }
+      }).then(res => user = res.data);
+      return user
+    },
+    async getPrice(id){
+            let price = undefined;
+            await axios({
+                method: "POST",
+                url: apiURL + "/api/price/get",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token')
+                },
+                data: {
+                    'priceID': id
+                }
+            }).then(res => price = res.data.value);
+            return price;
+        },
+        async getCategory(id){
+            let categ = undefined;
+            await axios({
+                method: "POST",
+                url: apiURL + "/api/category/get",
+                headers: {
+                    'Authorization': this.$cookies.get('access-token')
+                },
+                data: {
+                    'categoryID': id
+                }
+            }).then(res => categ = res.data.name);
+            return categ;
+        }
+  }
 };
 </script>

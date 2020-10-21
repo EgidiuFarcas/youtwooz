@@ -135,6 +135,19 @@ class AuthController {
         res.send(userInfo);
     }
 
+    static async getUser(req, res){
+        let user = await UserModel.findByID(req.body.userID);
+        if(!user) return res.status(404).send('User not found');
+        let userInfo = {
+            name: user.name,
+            email: user.email,
+            pfp: user.pfp,
+            points: user.points,
+            role: user.role,
+        }
+        res.send(userInfo);
+    }
+
     static async logout(req, res){
         let refreshToken = req.body.token;
         if(refreshToken === null) return res.status(400).send('Invalid Token');
