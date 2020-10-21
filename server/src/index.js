@@ -25,7 +25,7 @@ mongoose.connect(
 );
 //App middleware
 console.log(path.join(__dirname,'../'));
-app.use('/public/', express.static(path.join(__dirname,'../public')));
+app.use('/', express.static(path.join(__dirname,'../')));
 app.use(express.json());
 app.use(cors());
 //Route middleware
