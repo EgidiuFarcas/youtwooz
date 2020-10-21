@@ -7,6 +7,11 @@ import priceRoutes from './routes/api/price.js';
 import categoryRoutes from './routes/api/category.js';
 import roleRoutes from './routes/api/role.js';
 import submissionRoutes from './routes/api/submission.js';
+import {dirname} from 'path';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 //Load .env
 dotenv.config();
 //Create app server
@@ -19,7 +24,8 @@ mongoose.connect(
     () => console.log('Connected to DB')
 );
 //App middleware
-app.use('/public/', express.static('./public'));
+console.log(path.join(__dirname,'../'));
+app.use('/public/', express.static(path.join(__dirname,'../')));
 app.use(express.json());
 app.use(cors());
 //Route middleware
