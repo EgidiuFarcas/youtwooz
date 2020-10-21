@@ -1,5 +1,5 @@
 <template>
-    <div class="Showcase_item z-10">
+    <div class="Showcase_item z-10" v-if="info.name.toLowerCase().includes(filterText) || info.category.toLowerCase().includes(filterText)">
       <router-link
         :to="(hidden) ? '/' : '/products/'+info._id"
         class="ProductCard " :class="{'ProductCard--faded': faded == 'true'}"
@@ -51,7 +51,7 @@
 <script>
 import {apiURL} from '@/assets/variables.js';
 export default {
-    props: ['faded', 'hidden', 'info'],
+    props: ['faded', 'hidden', 'info', 'filterText'],
     computed: {
       style(){
         return (this.hidden == 'true') ? 'filter: brightness(0);' : '';

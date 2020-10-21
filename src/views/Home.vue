@@ -4,8 +4,14 @@
     <main class="Layout_content" role="main" id="main-content">
       <div class="Layout_page_container Layout_page_container--index">
         <AuthButtons class="text-center" />
+        <!-- Filters -->
+        <div class="mt-4 w-full md:w-2/3 mx-auto flex flex-row">
+          <!-- Category Dropdown -->
+          <input v-model="filterText" class="text-center shadow-lg w-full rounded-lg border-2 border-solid border-black px-4 py-2 text-xl" type="text" placeholder="Lookup Name/Category">
+          
+        </div>
         <!-- Live now -->
-        <Section title="Live now!" :submissions="published" hot="true" />
+        <Section title="Live now!" :submissions="published" :filterText="filterText.toLowerCase()" hot="true" />
 
         <!-- Coming soon -->
         <Section v-if="pending.length > 0" title="Upcoming Drops" :submissions="pending" faded="true" hidden="true" />
@@ -17,6 +23,25 @@
     <Footer />
   </div>
 </template>
+
+<style>
+  
+.svg-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #000000;
+}
+
+.svg-icon circle {
+  stroke: #000000;
+  stroke-width: 1;
+}
+</style>
 
 <script>
 // @ is an alias to /src
@@ -43,6 +68,7 @@ export default {
     return {
       published: [],
       pending: [],
+      filterText: ''
     }
   },
   async mounted(){
