@@ -11,7 +11,7 @@ class SubmissionController {
     static async query(req, res){
         if(!req.body.query) return res.status(400).send('Query not given');
 
-        let sub = await SubmissionModel.find({name: { $regex: '.*' + req.body.query + '.*' }, status: 'published'});
+        let sub = await SubmissionModel.find({name: { $regex: new RegExp(req.body.query, "i") }, status: 'published'});
         return res.send(sub);
     }
 
