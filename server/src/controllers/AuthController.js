@@ -132,6 +132,7 @@ class AuthController {
         let user = await UserModel.findByID(req.userID);
         if(!user) return res.status(404).send('User not found');
         let userInfo = {
+            _id: user._id,
             name: user.name,
             email: user.email,
             pfp: user.pfp,

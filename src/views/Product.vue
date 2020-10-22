@@ -251,6 +251,9 @@
                           <div v-html="info.description" class="Product-description content w-full break-all">
                             
                           </div>
+                          <div class="w-full break-all">
+                            <CommentSection :submissionID="info._id" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -270,12 +273,15 @@
 import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
 import AuthMiddleware from '@/middleware/AuthMiddleware.js';
+import CommentSection from '@/components/CommentSection.vue';
 const Entities = require('html-entities').AllHtmlEntities;
  
 const entities = new Entities();
 
 export default {
-  components: {},
+  components: {
+    CommentSection
+  },
   data(){
     return {
       info: null,

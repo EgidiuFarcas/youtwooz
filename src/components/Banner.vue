@@ -1,5 +1,8 @@
 <template>
   <div class="Layout_header">
+    <div class="w-full bg-red-600 px-4 py-2 text-center text-white">
+      This is not the real youtooz website. This is a 3rd party webapp where people can show-off their concepts.
+    </div>
     <div id="shopify-section-header-mizkif_bordie" class="shopify-section">
       <header class="Header Header--with-hero">
         <div class="Hero Hero--mizkif_bordie Hero--activated">

@@ -1,9 +1,9 @@
 import Filter from 'bad-words';
 
 let filter = new Filter();
-
+filter.addWords('kyle');
 // const profanities = [
-//     'fuck'
+//     'kyle'
 // ]
 
 export default function(text){
