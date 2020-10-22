@@ -8,32 +8,29 @@
                 Find</button>
         </div>
         <div class="flex flex-col w-full mt-2 overflow-y-scroll" style="max-height: 15rem">
-            <div v-for="sub in foundSubmissions" :key="sub._id" class="flex flex-row w-full items-center bg-gray-200 pl-4 rounded-lg my-1">
-                <p class="w-full text-left">{{sub.name}}</p>
-                <button @click="preview(sub._id)" class="px-2 py-1 ml-1 bg-white hover:bg-gray-300 focus:bg-theme-light focus:text-white rounded-lg border-solid border border-theme-light outline-none focus:outline-none">Preview</button>
-                <button @click="deleteSubmission(sub._id)" class="px-2 py-1 ml-1 bg-white hover:bg-gray-300 focus:bg-theme-light focus:text-white rounded-lg border-solid border border-theme-light outline-none focus:outline-none">Delete</button>
-            </div>
+            <FoundSubmissionItem @itemRemoved="foundSubmissions = foundSubmissions.filter(e => e._id !== $event);" v-for="sub in foundSubmissions" :key="sub._id" :sub="sub"/>
         </div>
         <p>Pending Submission</p>
         <div class="flex flex-row w-full mt-1">
             <input v-model="submissionNameFilter" type="text" placeholder="Submission Name" class="px-4 py-2 w-full border-solid border border-theme-light rounded-lg shadow">
         </div>
         <div class="flex flex-col w-full mt-2 overflow-y-scroll" style="max-height: 15rem">
-            <div v-for="sub in submissions" :key="sub._id" class="flex flex-row w-full items-center bg-gray-200 pl-4 rounded-lg my-1">
-                <p class="w-full text-left">{{sub.name}}</p>
-                <button @click="preview(sub._id)" class="px-2 py-1 ml-1 bg-white hover:bg-gray-300 focus:bg-theme-light focus:text-white rounded-lg border-solid border border-theme-light outline-none focus:outline-none">Preview</button>
-                <button @click="approve(sub._id)" class="px-2 py-1 ml-1 bg-white hover:bg-gray-300 focus:bg-theme-light focus:text-white rounded-lg border-solid border border-theme-light outline-none focus:outline-none">Approve</button>
-                <button @click="reject(sub._id)" class="px-2 py-1 ml-1 bg-white hover:bg-gray-300 focus:bg-theme-light focus:text-white rounded-lg border-solid border border-theme-light outline-none focus:outline-none">Reject</button>
-            </div>
+            <PendingSubmissionItem @itemRemoved="submissions = submissions.filter(e => e._id !== $event);" v-for="sub in submissions" :key="sub._id" :sub="sub"/>
         </div>
     </div>
 </template>
 
 <script>
+import FoundSubmissionItem from '@/components/Admin/FoundSubmissionItem.vue';
+import PendingSubmissionItem from '@/components/Admin/PendingSubmissionItem.vue';
+
 import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
 
 export default {
+    components: {
+        FoundSubmissionItem, PendingSubmissionItem
+    },
     data() {
         return {
             submissionName: '',
