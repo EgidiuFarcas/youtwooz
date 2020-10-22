@@ -126,20 +126,7 @@
                             </div>
                           </div>
 
-                          <form
-                            method="post"
-                            action="/cart/add"
-                            id="product_form_4567039508553"
-                            accept-charset="UTF-8"
-                            class="shopify-product-form"
-                            enctype="multipart/form-data"
-                            data-product-form="mizkif"
-                          >
-                            <input
-                              type="hidden"
-                              name="form_type"
-                              value="product"
-                            /><input type="hidden" name="utf8" value="✓" />
+                          
                             <div class="Product-toolbar-layout">
                               <span class="visually-hidden">
                                 <select name="id" class="input-select">
@@ -155,63 +142,31 @@
                                 class="Product-toolbar-layout_item Product-toolbar-quantity"
                               >
                                 <div class="QuantitySelect " data-stepper="">
-                                  <div
-                                    class="QuantitySelect_spinner QuantitySelect_spinner--down"
-                                    data-stepper-step="down"
-                                  >
-                                    <i data-mi="arrow_drop_down"></i>
-                                  </div>
+                                  
 
                                   <div class="QuantitySelect_field">
                                     <input
-                                      type="number"
+                                      type="text"
                                       class="QuantitySelect_input"
-                                      data-stepper-input=""
                                       name="quantity"
-                                      value="1"
-                                      min="1"
-                                      max="99"
-                                      step="1"
-                                      data-product-quantity="mizkif"
+                                      :value="likes + ((likes !== 1) ? ' likes' : ' like')"
+                                      disabled
                                     />
-
-                                    <span
-                                      class="QuantitySelect_value"
-                                      data-stepper-spinning=""
-                                    ></span>
                                   </div>
 
-                                  <div
-                                    class="QuantitySelect_spinner QuantitySelect_spinner--up"
-                                    data-stepper-step="up"
-                                  >
-                                    <i data-mi="arrow_drop_up"></i>
-                                  </div>
+                                  
                                 </div>
                               </div>
                               <div
-                                class="Product-toolbar-layout_item"
-                                data-state-switcher=""
-                              >
-                                <div
-                                  data-state-default=""
-                                  data-state-current=""
-                                >
-                                  <button
-                                    name="add"
-                                    type="submit"
-                                    class="Button  Button--primary"
-                                  >
+                                class="Product-toolbar-layout_item" >
+                                <div>
+                                  <button @click="toggleLike()" class="px-6 py-4 rounded-full outline-none focus:outline-none" 
+                                    :class="{'bg-theme-light text-white': liked, 'bg-black text-white': !liked}" >
                                     <div class="Button_inner">
                                       <div class="Button_content">
-                                        <i
-                                          class="Button_icon"
-                                          data-mi="shopping_basket"
-                                        ></i>
-
-                                        <span class="Button_text"
-                                          >Add to cart</span
-                                        >
+                                        <span class="Button_text">
+                                         {{ (!liked) ? ' ♡ Like ' : ' ♡ Liked '}}
+                                        </span>
                                       </div>
                                     </div>
                                   </button>
@@ -219,7 +174,6 @@
 
                               </div>
                             </div>
-                          </form>
 
                           <div class="Product-wait_for_it">
                             This is not an order. It&nbsp;will&nbsp;ship:
@@ -294,7 +248,7 @@
                             </div>
                           </div>
 
-                          <div v-html="info.description" class="Product-description content">
+                          <div v-html="info.description" class="Product-description content w-full break-all">
                             
                           </div>
                         </div>
@@ -315,6 +269,7 @@
 
 import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
+import AuthMiddleware from '@/middleware/AuthMiddleware.js';
 const Entities = require('html-entities').AllHtmlEntities;
  
 const entities = new Entities();
@@ -325,11 +280,14 @@ export default {
     return {
       info: null,
       fetched: false,
-      apiURL: apiURL
+      apiURL: apiURL,
+      liked: false,
+      likes: undefined
     }
   },
   async mounted(){
     await this.fetchData();
+    await this.fetchLikes();
     console.log(this.info.submitter.role);
   },
   methods: {
@@ -406,7 +364,80 @@ export default {
                 }
             }).then(res => categ = res.data.name);
             return categ;
-        }
+        },
+        toggleLike(){
+        this.liked = !this.liked;
+        if(this.liked) this.addLike();
+        else this.removeLike();
+      },
+      async fetchLikes(){
+        await axios({
+          method: 'post',
+          url: apiURL + "/api/like/get-total",
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then(res => {
+          this.likes = res.data.likes;
+        })
+        .catch(() => {
+          return;
+        });
+        let am = new AuthMiddleware();
+        if(!await am.checkAuthentication()) return;
+        await axios({
+          method: 'post',
+          url: apiURL + "/api/like/get",
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then((res) => {
+          if(res.data === true) this.liked = true;
+        })
+        .catch(() => {
+          return;
+        });
+      },
+      addLike(){
+        axios({
+          method: 'post',
+          url: apiURL + '/api/like/new',
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then(() => {
+          this.likes++;
+        })
+        .catch(() => this.liked = false);
+      },
+      removeLike(){
+        axios({
+          method: 'delete',
+          url: apiURL + '/api/like/delete',
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then(() => {
+          this.likes--;
+        })
+        .catch(() => this.liked = true);
+      }
   }
 };
 </script>

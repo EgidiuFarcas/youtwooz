@@ -7,6 +7,7 @@ import priceRoutes from './routes/api/price.js';
 import categoryRoutes from './routes/api/category.js';
 import roleRoutes from './routes/api/role.js';
 import submissionRoutes from './routes/api/submission.js';
+import likeRoutes from './routes/api/like.js';
 import {dirname} from 'path';
 import path from 'path';
 import {fileURLToPath} from 'url';
@@ -34,6 +35,7 @@ app.use('/api/price', priceRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/role', roleRoutes);
 app.use('/api/submission', submissionRoutes);
+app.use('/api/like', likeRoutes);
 
 app.get('/', (req, res) => res.send("Live."));
 

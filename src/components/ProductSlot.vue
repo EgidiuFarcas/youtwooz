@@ -1,5 +1,5 @@
 <template>
-    <div class="Showcase_item z-10" v-if="info.name.toLowerCase().includes(filterText) || info.category.toLowerCase().includes(filterText)">
+    <div class="Showcase_item z-10 flex flex-col" v-if="info.name.toLowerCase().includes(filterText) || info.category.toLowerCase().includes(filterText)">
       <router-link
         :to="(hidden) ? '/' : '/products/'+info._id"
         class="ProductCard " :class="{'ProductCard--faded': faded == 'true'}"
@@ -42,13 +42,25 @@
             <span class="ProductCard_price_current ">{{info.price}} </span>
           </div>
         </div>
+        
       </router-link>
-
-    
+      <div>
+          <button @click="toggleLike()" class="text-xl border-theme-light border border-solid rounded-full px-3 py-1 outline-none focus:outline-none"
+            :class="{'bg-theme-light text-white': liked === true, 'text-theme-light': liked !== true}">
+            {{ likes }} {{ (!liked) ? ' ♡ Like ' : ' ♡ Liked '}}
+          </button>
+        </div>
     </div>
 </template>
 
+<style>
+  .svg-icon {
+    fill: #ff0000 !important;
+  }
+</style>
+
 <script>
+import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
 export default {
     props: ['faded', 'hidden', 'info', 'filterText'],
@@ -59,7 +71,82 @@ export default {
     },
     data(){
       return {
-        apiURL: apiURL
+        apiURL: apiURL,
+        liked: false,
+        likes: undefined
+      }
+    },
+    async mounted(){
+      await axios({
+        method: 'post',
+        url: apiURL + "/api/like/get-total",
+        headers: {
+          'Authorization': this.$cookies.get('access-token')
+        },
+        data: {
+          'itemID': this.info._id
+        }
+      })
+      .then(res => {
+        this.likes = res.data.likes;
+      })
+      .catch(() => {
+        return;
+      });
+      await axios({
+        method: 'post',
+        url: apiURL + "/api/like/get",
+        headers: {
+          'Authorization': this.$cookies.get('access-token')
+        },
+        data: {
+          'itemID': this.info._id
+        }
+      })
+      .then((res) => {
+        if(res.data === true) this.liked = true;
+      })
+      .catch(() => {
+        return;
+      });
+    },
+    methods: {
+      toggleLike(){
+        this.liked = !this.liked;
+        if(this.liked) this.addLike();
+        else this.removeLike();
+      },
+      addLike(){
+        axios({
+          method: 'post',
+          url: apiURL + '/api/like/new',
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then(() => {
+          this.likes++;
+        })
+        .catch(() => this.liked = false);
+      },
+      removeLike(){
+        axios({
+          method: 'delete',
+          url: apiURL + '/api/like/delete',
+          headers: {
+            'Authorization': this.$cookies.get('access-token')
+          },
+          data: {
+            'itemID': this.info._id
+          }
+        })
+        .then(() => {
+          this.likes--;
+        })
+        .catch(() => this.liked = true);
       }
     }
 }
