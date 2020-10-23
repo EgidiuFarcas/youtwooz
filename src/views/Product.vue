@@ -371,7 +371,7 @@ export default {
             }).then(res => categ = res.data.name);
             return categ;
         },
-        toggleLike(){
+      toggleLike(){
         this.liked = !this.liked;
         if(this.liked) this.addLike();
         else this.removeLike();
@@ -426,7 +426,10 @@ export default {
         .then(() => {
           this.likes++;
         })
-        .catch(() => this.liked = false);
+        .catch(() => {
+          this.liked = false;
+          this.$router.push('/login');
+        });
       },
       removeLike(){
         axios({

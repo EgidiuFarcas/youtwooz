@@ -130,7 +130,10 @@ export default {
         .then(() => {
           this.likes++;
         })
-        .catch(() => this.liked = false);
+        .catch(() => {
+          this.liked = false;
+          this.$router.push('/login');
+        });
       },
       removeLike(){
         axios({
