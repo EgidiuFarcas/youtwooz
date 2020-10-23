@@ -20,6 +20,11 @@ const routes = [
     beforeEnter: (to, from, next) => am.isNotAuthenticated(next)
   },
   {
+    path: '/reset-password', name: 'ResetPassword',
+    component: () => import('../views/ResetPasswordRequest.vue'),
+    beforeEnter: (to, from, next) => am.isNotAuthenticated(next)
+  },
+  {
     path: '/register', name: 'Register',
     component: () => import('../views/Register.vue'),
     beforeEnter: (to, from, next) => am.isNotAuthenticated(next)
@@ -47,6 +52,10 @@ const routes = [
   {
     path: '/account/verify/:userID/:verifyToken', name: 'AccountVerify',
     component: () => import('../views/AccountVerify.vue')
+  },
+  {
+    path: '/password-reset/:userID/:verifyToken', name: 'ResetPassword',
+    component: () => import('../views/ResetPassword.vue')
   }
 ]
 

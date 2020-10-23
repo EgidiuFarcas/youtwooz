@@ -14,6 +14,8 @@ router.post('/register', (req, res) => AuthController.register(req, res));
 router.post('/login', (req, res) => AuthController.login(req, res));
 router.post('/token', (req, res) => AuthController.regenToken(req, res));
 router.post('/verify', (req, res) => AuthController.verifyAccount(req, res));
+router.post('/password-reset/request', (req, res) => AuthController.resetPasswordRequest(req, res));
+router.post('/password-reset', (req, res) => AuthController.resetPassword(req, res));
 
 router.post('/info', verifyJWT, (req, res) => AuthController.getUserInfo(req, res));
 router.post('/user', (req, res) => AuthController.getUser(req, res));

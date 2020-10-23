@@ -2,9 +2,12 @@
     <div class="h-screen w-screen">
         <div class="container mx-auto h-full flex justify-center items-center">
             <div class="w-full md:w-1/2 lg:w-1/3">
-                <h1 class="font-hairline mb-6 text-center text-2xl">Welcome back!</h1>
+                <h1 class="font-hairline mb-6 text-center text-2xl">Recover your Password!</h1>
                 <div class="border-solid p-8 border-t-8 border-theme-light bg-white mb-6 rounded-lg shadow-lg">
-                     <div id="errorBox" class="hidden mb-4 bg-red-500 text-white p-2 rounded shadow-md">
+                    <div id="errorBox" class="hidden mb-4 bg-red-500 text-white p-2 rounded shadow-md">
+                        This is an error message, please fix your problem.
+                    </div>
+                    <div id="successBox" class="hidden mb-4 bg-green-500 text-white p-2 rounded shadow-md">
                         This is an error message, please fix your problem.
                     </div>
                     <div class="mb-4">
@@ -12,19 +15,14 @@
                         <input v-model="email" required type="email" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Email">
                     </div>
 
-                    <div class="mb-4">
-                        <label class="font-bold text-grey-darker block mb-2">Password</label>
-                        <input v-model="password" required type="password" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Password">
-                    </div>
-
                     <div class="flex items-center justify-between">
                         <button @click="submit" class="bg-theme-light hover:bg-teal text-white font-bold py-2 px-4 rounded">
-                            Login
+                            Request Password Reset
                         </button>
 
                         <div class="flex flex-col">
-                            <router-link class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" to="/reset-password">
-                                Forgot Password?
+                            <router-link class="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" to="/login">
+                                Back to Login
                             </router-link>
                             <router-link class="no-underline inline-block align-baseline text-sm text-blue hover:text-blue-dark float-right" to="/">
                                 Back to homepage
@@ -49,30 +47,28 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
         }
     },
     methods: {
         submit: function(){
             let payload = {
                 "email": this.email,
-                "password": this.password
             };
 
             axios({
                 method: 'POST',
-                url: apiURL + '/api/auth/login',
+                url: apiURL + '/api/auth/password-reset/request',
                 data: payload
             })
-            .then(res => {
+            .then(() => {
                 document.getElementById('errorBox').classList.add('hidden');
                 this.email = '';
-                this.password = '';
-                this.$cookies.set('access-token', res.data.access_token, "1d");
-                this.$cookies.set('refresh-token', res.data.refresh_token, "7d");
-                this.$router.push('/account');
+                let sb = document.getElementById('successBox');
+                sb.innerHTML = "Password reset link successfuly sent.";
+                sb.classList.remove('hidden')
             })
             .catch(err => {
+                document.getElementById('successBox').classList.add('hidden');
                 if(!err.response) return;
                 if(err.response.status == 422){
                     this.displayError("There already is an account associated with the email");

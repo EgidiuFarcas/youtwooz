@@ -10,6 +10,7 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const MAIL_DOMAIN = "ytwb.boredproject.com";
 
 class AuthController {
     static async login(req, res) {
@@ -58,12 +59,58 @@ class AuthController {
             }
             let savedUser = await UserModel.create(data);
             
-            Mail(savedUser.email, savedUser._id, savedUser.verifyToken, "ytwb.boredproject.com");
+            Mail.sendVerificationLink(savedUser.email, savedUser._id, savedUser.verifyToken, MAIL_DOMAIN);
 
             res.send({userID: savedUser._id });
         }catch(err){
             res.status(422).send(err);
         }
+    }
+
+    static async resetPasswordRequest(req, res){
+        let email = req.body.email;
+        if(email === "" || email === null) return res.status(400).send('Invalid UserID');
+        let user = await UserModel.findByEmail(email);
+        if(!user) return res.status(404).send('User Not Found');
+        if(user.verified === false) return res.status(401).send('User is not verified or does not exist');
+
+        user.verifyToken = this.makeRandomString(60);
+        try{
+            await user.save();
+        }catch(err) {
+            console.log(err);
+            return res.status(400).send('Something went wrong');
+         }
+
+        Mail.sendPasswordResetLink(user.email, user._id, user.verifyToken, MAIL_DOMAIN);
+        res.send('Verification link sent.');
+    }
+
+    static async resetPassword(req, res){
+        let userID = req.body.userID;
+        if(userID === "" || userID === null) return res.status(400).send('Invalid UserID');
+        if(!req.body.password) return res.status(400).send('Password Missing');
+        let user = await UserModel.findByID(userID);
+        if(!user) return res.status(400).send('Invalid UserID');
+        let verifyToken = req.body.verifyToken;
+        if(verifyToken === null) return res.status(400).send('Invalid Verification Token');
+        if(verifyToken === user.verifyToken) {
+            user.verifyToken = '';
+
+             //Hash the password
+            let salt = await bcrypt.genSalt(10);
+            let hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+            user.password = hashedPassword;
+            try{
+                await user.save();
+            }catch(err) {
+                console.log(err);
+                return res.status(400).send('Something went wrong');
+             }
+             return res.send('Password Reset');
+        }
+        res.status(400).send('Token does not match');
     }
 
     static async verifyAccount(req, res){
@@ -75,7 +122,7 @@ class AuthController {
         if(verifyToken === null) return res.status(400).send('Invalid Verification Token');
         if(verifyToken === user.verifyToken) {
             user.verified = true;
-            //user.verifyToken = '';
+            user.verifyToken = '';
             try{
                 await user.save();
             }catch(err){
@@ -166,6 +213,16 @@ class AuthController {
     static generateJWT(user){
         return jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1h'});
     }
+
+    static makeRandomString(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     }
 }
 
 export default AuthController;
