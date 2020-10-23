@@ -10,7 +10,7 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const MAIL_DOMAIN = "ytwb.boredproject.com";
+const MAIL_DOMAIN = "betatooz.boredproject.com";
 
 class AuthController {
     static async login(req, res) {

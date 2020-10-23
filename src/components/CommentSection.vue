@@ -8,7 +8,9 @@
                 Send
             </button>
         </div>
-        <div class="p-4">
+        <img v-if="!comments" class="h-64 w-auto mx-auto" src="https://flevix.com/wp-content/uploads/2019/07/Ajax-Preloader.gif" alt="">
+        <p v-if="comments && comments.length === 0" class="p-4">This submission has no comments.</p>
+        <div v-if="comments" class="p-4">
             <Comment v-for="comment in comments.slice().reverse()" :key="comment._id"
                 :authenticated="authenticated" :info="comment" @commentDeleted="comments = comments.filter(c => c._id !== $event)"/>
         </div>
@@ -32,7 +34,7 @@ export default {
         return {
             authenticated: false,
             newComment: '',
-            comments: []
+            comments: undefined
         }
     },
     async mounted(){
