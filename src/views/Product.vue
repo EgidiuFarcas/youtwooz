@@ -46,7 +46,7 @@
                             >
                               <img
                                 :src="apiURL + ((info.type === 1) ? info.image3D : info.image2D)"
-                                alt="Mizkif"
+                                :alt="info.name"
                                 draggable="false"
                               />
                             </div>
@@ -65,7 +65,7 @@
                                 target="_blank">
                                 <img
                                   :src="apiURL + info.image3D"
-                                  alt="Mizkif"
+                                  :alt="info.name"
                                   draggable="false"/>
                               </a>
                             </li>
@@ -79,7 +79,7 @@
                                 target="_blank">
                                 <img
                                   :src="apiURL + info.image2D"
-                                  alt="Mizkif"
+                                  :alt="info.name"
                                   draggable="false"/>
                               </a>
                             </li>
@@ -95,7 +95,7 @@
                               >
                                 <img
                                   :src="apiURL + info.imageBox"
-                                  alt="Mizkif"
+                                  :alt="info.name"
                                   draggable="false"
                                 />
                               </a>

@@ -41,11 +41,12 @@ export default {
         }
     },
     async mounted(){
+        console.log(this.authenticated);
         if(!this.info) return;
         await this.getUser();
         await this.fetchLikes();
         await this.loadUserRole(this.user.roleID);
-        if(!this.authenticated){
+        if(this.authenticated){
             this.currentUser = await this.getCurrentUser();
         }
         this.info.text = entities.decode(this.info.text);
