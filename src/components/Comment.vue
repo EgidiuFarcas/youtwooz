@@ -1,8 +1,8 @@
 <template>
     <div v-if="info && user" class="mb-3 flex w-full px-4 py-2 bg-gray-200 rounded-lg shadow-md">
         <div class="flex flex-row mr-2">
-            <img v-if="user" class="h-12 w-auto rounded-full" :src="apiURL + user.pfp" alt="">
-            <img v-if="!user" class="h-12 w-auto rounded-full" src="@/assets/default_pfp.png" alt="">
+            <img v-if="user && user.pfp !== null" class="h-12 w-auto rounded-full" :src="apiURL + user.pfp" alt="">
+            <img v-if="!user || user.pfp === null" class="h-12 w-auto rounded-full" src="@/assets/default_pfp.png" alt="">
         </div>
         <div class="flex flex-col w-full">
             <p class="font-bold">{{user.name}} <span class="text-xs px-2 py-1 rounded-lg text-white" :style="'background-color: '+user.roleColor">{{user.role}}</span></p>
@@ -159,7 +159,10 @@ export default {
         .then(() => {
           this.likes++;
         })
-        .catch(() => this.liked = false);
+        .catch(() => {
+          this.liked = false;
+          this.$router.push('/login');
+        });
       },
       removeLike(){
         axios({

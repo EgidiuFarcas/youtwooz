@@ -248,7 +248,7 @@
                             </div>
                           </div>
 
-                          <div v-html="info.description" class="Product-description content w-full break-all">
+                          <div v-html="info.description" class="Product-description content w-full break-words">
                             
                           </div>
                           <div class="w-full break-all">

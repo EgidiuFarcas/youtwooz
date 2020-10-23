@@ -18,7 +18,7 @@
                     <img v-if="submissions.length == 0" class="h-64 w-auto mx-auto" src="https://flevix.com/wp-content/uploads/2019/07/Ajax-Preloader.gif" alt="">
                     <div v-if="submissions" class="Showcase  Showcase--center-items" data-collection-list="coming-soon">
                         <!-- Here go the items -->
-                        <ProductSlot :faded="faded" :hidden="hidden" v-for="sub in submissions" :key="sub._id" :info="sub" :filterText="filterText"/>
+                        <ProductSlot :faded="faded" :hidden="hidden" v-for="sub in submissions.slice().reverse()" :key="sub._id" :info="sub" :filterText="filterText"/>
                     </div>
                 </div>
             </div>
