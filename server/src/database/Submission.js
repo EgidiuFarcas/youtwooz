@@ -24,7 +24,7 @@ const submissionSchema = new mongoose.Schema({
     hasBox: { type: Boolean, required: true, default: false},
     name: { type: String, required: true, min: 6, max: 255 },
     description: { type: String, min: 255, max: 5120},
-    categoryID: { type: String},
+    categoryID: { type: mongoose.Schema.Types.ObjectID, ref: 'Category'},
     priceID: { type: String},
     height: { type: String},
     gradientFrom: { type: String},

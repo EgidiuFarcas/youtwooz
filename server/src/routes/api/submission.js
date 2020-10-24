@@ -18,6 +18,7 @@ router.post('/status', [verifyJWT], (req, res) => SubmissionController.setStatus
 router.post('/get/mine', [verifyJWT], (req, res) => SubmissionController.getMine(req, res));
 router.post('/get/published', (req, res) => SubmissionController.getPublished(req, res));
 router.post('/get/pending', (req, res) => SubmissionController.getPending(req, res));
+router.post('/get/search', (req, res) => SubmissionController.getSearched(req, res));
 router.post('/info', (req, res) => SubmissionController.getInfo(req, res));
 router.post('/delete', [verifyJWT], (req, res) => SubmissionController.delete(req, res));
 router.post('/query', [verifyJWT], (req, res) => SubmissionController.query(req, res));

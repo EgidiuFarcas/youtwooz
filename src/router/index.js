@@ -11,6 +11,9 @@ const routes = [
     path: '/', name: 'Home', component: Home
   },
   {
+    path: '/sort/:sortBy?', name: 'HomeSorted', component: Home
+  },
+  {
     path: '/products/:id', name: 'Product',
     component: () => import(/* webpackChunkName: "about" */ '../views/Product.vue')
   },

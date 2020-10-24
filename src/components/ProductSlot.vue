@@ -1,5 +1,5 @@
 <template>
-    <div class="Showcase_item z-10 flex flex-col" v-if="info.name.toLowerCase().includes(filterText) || info.category.toLowerCase().includes(filterText)">
+    <div class="Showcase_item z-10 flex flex-col" >
       <router-link
         :to="(hidden) ? '/' : '/products/'+info._id"
         class="ProductCard " :class="{'ProductCard--faded': faded == 'true'}"

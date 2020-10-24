@@ -34,14 +34,39 @@ class SubmissionController {
     }
 
     static async getPublished(req, res){
-        if(!req.body.amount) return res.status(400).send("Amount not provided");
-        let subs = await SubmissionModel.findAmount({status: 'published'}, req.body.amount);
+        if(!req.body.from) return res.status(400).send("From not provided");
+        if(!req.body.to) return res.status(400).send("To not provided");
+        let sortBy = 'newest';
+        if(req.body.sortBy) sortBy = req.body.sortBy;
+        let subs;
+        switch(sortBy){
+            case 'oldest': 
+                sortBy = {updatedAt: 'asc'};
+                subs = await SubmissionModel.findAmount({status: 'published'}, req.body.from, req.body.to, sortBy);
+                break;
+            case 'most_liked': 
+                subs = await SubmissionModel.findAmountByLikes({status: 'published'}, req.body.from, req.body.to, 'desc');
+                break;
+            case 'least_liked': 
+                subs = await SubmissionModel.findAmountByLikes({status: 'published'}, req.body.from, req.body.to, 'asc');
+                break;
+            default: 
+                sortBy = {updatedAt: 'desc'};
+                subs = await SubmissionModel.findAmount({status: 'published'}, req.body.from, req.body.to, sortBy);
+                break;
+        }
         return res.send({submissions: subs});
+    }
+
+    static async getSearched(req, res){
+        if(!req.body.query) return res.status(400).send("Query not provided");
+        let subs = await SubmissionModel.search(req.body.query)
+        res.send(subs);
     }
 
     static async getPending(req, res){
         if(!req.body.amount) return res.status(400).send("Amount not provided");
-        let subs = await SubmissionModel.findAmount({status: /pending/}, req.body.amount);
+        let subs = await SubmissionModel.findAmount({status: /pending/}, 0, req.body.amount, {updatedAt: 'desc'});
         return res.send({submissions: subs});
     }
 
