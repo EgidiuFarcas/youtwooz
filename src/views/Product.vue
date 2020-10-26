@@ -22,12 +22,14 @@
                   <div
                     class="ProductModal-gallery-pagination ProductModal-gallery-pagination--left"
                     data-gallery-goto="prev"
+                    @click="prevImage()"
                   >
                     <i data-mi="arrow_back"></i>
                   </div>
                   <div
                     class="ProductModal-gallery-pagination ProductModal-gallery-pagination--right"
                     data-gallery-goto="next"
+                    @click="nextImage()"
                   >
                     <i data-mi="arrow_forward"></i>
                   </div>
@@ -45,7 +47,7 @@
                               data-gallery-current="14621150085193"
                             >
                               <img
-                                :src="apiURL + ((info.type === 1) ? info.image3D : info.image2D)"
+                                :src="apiURL + ((currentImage !== '2D') ? ((currentImage === '3D') ? info.image3D : info.imageBox) : info.image2D)"
                                 :alt="info.name"
                                 draggable="false"
                               />
@@ -56,10 +58,11 @@
                             data-drag-scroller=""
                           >
                           <li v-if="info.image3D"
-                              class="ProductGallery_thumbs_item" :class="{'active': info.type === 1}"
+                              class="ProductGallery_thumbs_item" :class="{'active': currentImage === '3D'}"
                               data-gallery-preview="14621150085193"
                               :data-gallery-source="apiURL + info.image3D">
                               <a
+                                @click="currentImage = '3D'"
                                 class="ProductGallery_thumbs_thumb"
                                 :href="apiURL + info.image3D"
                                 target="_blank">
@@ -70,10 +73,11 @@
                               </a>
                             </li>
                             <li v-if="info.image2D"
-                              class="ProductGallery_thumbs_item" :class="{'active': info.type !== 1}"
+                              class="ProductGallery_thumbs_item" :class="{'active': currentImage === '2D'}"
                               data-gallery-preview="14621150085193"
                               :data-gallery-source="apiURL + info.image2D">
                               <a
+                                @click="currentImage = '2D'"
                                 class="ProductGallery_thumbs_thumb"
                                 :href="apiURL + info.image2D"
                                 target="_blank">
@@ -84,11 +88,12 @@
                               </a>
                             </li>
                             <li v-if="info.imageBox"
-                              class="ProductGallery_thumbs_item"
+                              class="ProductGallery_thumbs_item" :class="{'active': currentImage === 'Box'}"
                               data-gallery-preview="14621150838857"
                               :data-gallery-source="apiURL + info.imageBox"
                             >
                               <a
+                                @click="currentImage = 'Box'"
                                 class="ProductGallery_thumbs_thumb"
                                 :href="apiURL + info.imageBox"
                                 target="_blank"
@@ -288,15 +293,52 @@ export default {
       fetched: false,
       apiURL: apiURL,
       liked: false,
-      likes: undefined
+      likes: undefined,
+      currentImage: '2D',
     }
   },
-  async mounted(){
+  async created(){
     await this.fetchData();
     await this.fetchLikes();
     console.log(this.info.submitter.role);
   },
+  metaInfo(){
+    return {
+      title: this.info ? `${this.info.name} - Submission` : 'Youtwooz Collectibles',
+      meta: [
+        { name: 'og:description', content: this.info ? this.info.description : "Catalogue of the communities's greatest concepts."},
+      ],
+    }
+  },
   methods: {
+    prevImage(){
+      if(this.currentImage === '2D'){
+        if(this.info.image3D) this.currentImage = '3D';
+        else if(this.info.hasBox) this.currentImage = 'Box';
+      }
+      else if(this.currentImage === '3D'){
+        if(this.info.hasBox) this.currentImage = 'Box';
+        else if(this.info.image2D) this.currentImage = '2D';
+      }
+      else if(this.currentImage === 'Box'){
+        if(this.info.image2D) this.currentImage = '2D';
+        else if(this.info.image3D) this.currentImage = '3D';
+      }
+    },
+    nextImage(){
+      if(this.currentImage === '2D'){
+        if(this.info.hasBox) this.currentImage = 'Box';
+        else if(this.info.image3D) this.currentImage = '3D';
+      }
+      else if(this.currentImage === '3D'){
+        if(this.info.image2D) this.currentImage = '2D';
+        else if(this.info.hasBox) this.currentImage = 'Box';
+      }
+      else if(this.currentImage === 'Box'){
+        if(this.info.image3D) this.currentImage = '3D';
+        else if(this.info.image2D) this.currentImage = '2D';
+      }
+    },
     async fetchData(){
       await axios({
         method: "post",
