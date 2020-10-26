@@ -12,7 +12,7 @@
         <nav class="Footer_socials">
           <ul class="Footer_socials_inner">
                 <li class="Footer_socials_item" data-nth-counter="">
-                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://twitter.com/youtwooz" title="Youtwooz Collectibles on twitter">
+                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://twitter.com/RealYoutwooz" title="Youtwooz Collectibles on Twitter">
                     <i class="Footer_socials_icon"><svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
   <use xlink:href="#twitter"></use>
 </svg>
@@ -25,7 +25,7 @@
             
 
                 <li class="Footer_socials_item" data-nth-counter="">
-                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://reddit.com/r/youtwooz" title="Youtwooz Collectibles on reddit">
+                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://reddit.com/r/youtwooz" title="Youtwooz Collectibles on Reddit">
                     <i class="Footer_socials_icon"><svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
   <use xlink:href="#reddit"></use>
 </svg>
@@ -33,10 +33,6 @@
                     <i class="fallback-text">reddit</i>
                   </a>
                 </li>
-              
-
-            
-
 
             
 
@@ -47,6 +43,16 @@
 </svg>
 </i>
                     <i class="fallback-text">discord</i>
+                  </a>
+                </li>
+
+                <li class="Footer_socials_item" data-nth-counter="">
+                  <a class="Footer_socials_link" target="_blank" rel="noopener" href="https://www.instagram.com/youtwooz" title="Youtwooz Collectibles on Instagram">
+                    <i class="Footer_socials_icon"><svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+  <use xlink:href="#instagram"></use>
+</svg>
+</i>
+                    <i class="fallback-text">instagram</i>
                   </a>
                 </li>
               

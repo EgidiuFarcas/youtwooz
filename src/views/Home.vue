@@ -3,6 +3,8 @@
     <Banner></Banner>
     <main class="Layout_content" role="main" id="main-content">
       <div class="Layout_page_container Layout_page_container--index">
+        <PatreonRedirect > </PatreonRedirect>
+        
         <AuthButtons class="text-center" />
         <!-- Filters -->
         <div class="mt-4 w-full md:w-2/3 mx-auto flex flex-col md:flex-row">
@@ -68,6 +70,7 @@ import Banner from "@/components/Banner.vue";
 import Section from "@/components/Section.vue";
 import Footer from "@/components/Footer.vue";
 import AuthButtons from "@/components/AuthButtons.vue";
+import PatreonRedirect from '@/components/PatreonRedirect.vue';
 
 import axios from 'axios';
 import {apiURL} from '@/assets/variables.js';
@@ -84,6 +87,7 @@ export default {
     Section,
     Footer,
     AuthButtons,
+    PatreonRedirect
   },
   data(){
     return {
