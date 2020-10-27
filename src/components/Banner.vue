@@ -22,8 +22,7 @@
                   <div class="HeroTooz HeroTooz--mizkif">
                     <div class="HeroTooz_name" title="">
                       <div
-                        class="HeroTooz_name_inner HeroTooz_name_inner--small"
-                      >
+                        class="HeroTooz_name_inner HeroTooz_name_inner--small">
                         PeanutButterArthur
                       </div>
                     </div>
