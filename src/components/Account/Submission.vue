@@ -9,8 +9,8 @@
             <img v-if="info.type !== 0 /* 0 == '2D' */" :src="(info.image3D) ? api + info.image3D : defaultImage" class="h-32 w-auto mx-auto" alt="">
         </div>
         <div class="flex flex-col">
-            <p>{{ info.name }} - {{ info.category }}</p>
-            <p>{{ info.price }}</p>
+            <p>{{ info.name }} - {{ info.category.name }}</p>
+            <p>{{ info.price.amount }}</p>
             <div class="w-full flex my-4 items-center justify-evenly">
                 <button v-if="info.status !== 'pending'" @click="$router.push('/edit-submission/' + info._id)" class="w-full mx-4 px-4 py-2 bg-black text-white border-solid shadow-md border-4 border-white hover:border-theme-light rounded-full outline-none focus:outline-none">Edit</button>
                 <button @click="deleteSub(info._id)" class="w-full mx-4 px-4 py-2 bg-black text-white border-solid shadow-md border-4 border-white hover:border-theme-light rounded-full outline-none focus:outline-none">Delete</button>

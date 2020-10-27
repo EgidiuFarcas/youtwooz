@@ -67,8 +67,8 @@ export default {
             .then(async res => {
                 let subs = res.data.submissions;
                 for(let i = 0; i < subs.length; i++){
-                    if(subs[i].priceID) subs[i].price = await this.getPrice(subs[i].priceID);
-                    if(subs[i].categoryID) subs[i].category = await this.getCategory(subs[i].categoryID);
+                    if(subs[i].priceID) subs[i].price = subs[i].priceID;
+                    if(subs[i].categoryID) subs[i].category = subs[i].categoryID;
 
                     switch(subs[i].status){
                         case 'draft': 
@@ -86,34 +86,6 @@ export default {
             })
             .catch(err => console.log(err.response));
         },
-        async getPrice(id){
-            let price = undefined;
-            await axios({
-                method: "POST",
-                url: apiURL + "/api/price/get",
-                headers: {
-                    'Authorization': this.$cookies.get('access-token')
-                },
-                data: {
-                    'priceID': id
-                }
-            }).then(res => price = res.data.value);
-            return price;
-        },
-        async getCategory(id){
-            let categ = undefined;
-            await axios({
-                method: "POST",
-                url: apiURL + "/api/category/get",
-                headers: {
-                    'Authorization': this.$cookies.get('access-token')
-                },
-                data: {
-                    'categoryID': id
-                }
-            }).then(res => categ = res.data.name);
-            return categ;
-        }
     }
 }
 </script>
