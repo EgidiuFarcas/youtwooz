@@ -9,12 +9,12 @@
             </div>
         </div>
         </div>
-        <p class="mt-2 text-xl">@{{user.name}} <span class="text-sm text-white rounded-md px-2 py-1" :style="{'background-color': user.roleColor}"> • {{user.role}}</span></p>
+        <p class="mt-2 text-xl">@{{user.name}} <span class="text-sm text-white rounded-md px-2 py-1" :style="{'background-color': user.role.color}"> • {{user.role.name}}</span></p>
         <p class="text italic">{{user.email}}</p>
         <div class="mt-4">
             <button @click="$router.push('/')"
              class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Home</button>
-            <button @click="$router.push('/admin')" v-if="user.role === 'Admin'"
+            <button @click="$router.push('/admin')" v-if="user.role.name === 'Admin'"
              class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Admin</button>
             <button @click="logout"
              class="text-xl px-3 py-1 bg-black text-white border-white border-solid border-3 rounded-full shadow mx-2 hover:border-red-500 focus:shadow-none focus:outline-none">Logout</button>
@@ -34,9 +34,11 @@ export default {
             user: {
                 pfp: null,
                 name: 'Username',
-                role: 'User',
-                roleColor: '#000000',
-                email: 'someemail@test.com'
+                email: 'someemail@test.com',
+                role: {
+                    name: 'User',
+                    color: '#000000',
+                }
             }
         }
     },
@@ -65,6 +67,7 @@ export default {
             .then(res => this.user.pfp = apiURL + res.data)
             .catch(err => console.log(err));
         },
+        
         async loadUserInfo(){
             let user = this.user;
             axios({
@@ -76,26 +79,11 @@ export default {
             }).then(res => {
                 user.name = res.data.name;
                 user.email = res.data.email;
+                user.role = res.data.role;
                 if(res.data.pfp !== null) user.pfp = apiURL + res.data.pfp;
-                if(res.data.role !== null) this.loadUserRole(res.data.role)
             }).catch(err => {
                 if(err.response.status === 404) this.logout();
             });
-        },
-        async loadUserRole(roleID){
-            axios({
-                method: "POST",
-                url: apiURL + "/api/role/get",
-                headers: {
-                    'Authorization': this.$cookies.get('access-token')
-                },
-                data: {
-                    'roleID': roleID
-                }
-            }).then(res => {
-                this.user.role = res.data.name;
-                this.user.roleColor = res.data.color;
-            }).catch(err => console.log(err));
         },
         async logout(){
             let am = new AuthMiddleware();

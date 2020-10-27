@@ -25,7 +25,7 @@
         </div>
 
         <div class="ProductCard_content">
-          <strong class="ProductCard_category">{{(hidden) ? "Mystery" : info.category}} </strong>
+          <strong class="ProductCard_category">{{(hidden) ? "Mystery" : info.category.name}} </strong>
 
           <h3 class="ProductCard_name" title="Mizkif">
             <div class="ProductCard_name_inner ProductCard_name_inner--orig">
@@ -39,7 +39,7 @@
             </div>
           </h3>
           <div v-if="!hidden" class="ProductCard_price">
-            <span class="ProductCard_price_current ">{{info.price}} </span>
+            <span class="ProductCard_price_current ">{{info.price.amount}} </span>
           </div>
         </div>
         
@@ -77,22 +77,7 @@ export default {
       }
     },
     async mounted(){
-      await axios({
-        method: 'post',
-        url: apiURL + "/api/like/get-total",
-        headers: {
-          'Authorization': this.$cookies.get('access-token')
-        },
-        data: {
-          'itemID': this.info._id
-        }
-      })
-      .then(res => {
-        this.likes = res.data.likes;
-      })
-      .catch(() => {
-        return;
-      });
+      this.likes = this.info.likes;
       await axios({
         method: 'post',
         url: apiURL + "/api/like/get",

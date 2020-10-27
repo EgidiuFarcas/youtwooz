@@ -116,7 +116,7 @@
                         >
                           <div class="Product-header">
                             <div class="Product-header_left">
-                              <div class="Product-brand text-left">{{info.category}}</div>
+                              <div class="Product-brand text-left">{{info.category.name}}</div>
                               <div class="Product-name ">
                                 {{info.name}}
                               </div>
@@ -125,7 +125,7 @@
                             <div class="Product-header_right">
                               <div class="Product-price">
                                 <span class="Product-price_current ">
-                                  {{info.price}}
+                                  {{info.price.amount}}
                                 </span>
                               </div>
                             </div>
@@ -237,7 +237,7 @@
                                   Submitted By
                                 </div>
                                 <div class="Product-detail-line_value py-1">
-                                  {{info.submitter.name}} <span class="text-xs text-white rounded-md px-1 py-1" :style="{'background-color': info.submitter.roleColor}"> • {{info.submitter.role}}</span>
+                                  {{info.submitter.name}} <span class="text-xs text-white rounded-md px-1 py-1" :style="{'background-color': info.submitter.role.color}"> • {{info.submitter.role.name}}</span>
                                 </div>
                               </div>
                             </div>
@@ -299,8 +299,8 @@ export default {
   },
   async created(){
     await this.fetchData();
-    await this.fetchLikes();
-    console.log(this.info.submitter.role);
+    this.likes = this.info.likes
+    await this.checkLiked();
   },
   metaInfo(){
     return {
@@ -351,10 +351,11 @@ export default {
         this.info = res.data;
         this.info.description = entities.decode(this.info.description);
         this.info.height = entities.decode(this.info.height);
-        this.info.submitter = await this.getUser(this.info.submitterID);
-        if(this.info.priceID) this.info.price = await this.getPrice(this.info.priceID);
-        if(this.info.categoryID) this.info.category = await this.getCategory(this.info.categoryID);
-        await this.loadUserRole(this.info.submitter.roleID);
+        this.info.artist2D = entities.decode(this.info.artist2D);
+        this.info.artist3D = entities.decode(this.info.artist3D);
+        this.info.submitter = this.info.submitterID;
+        if(this.info.priceID) this.info.price = this.info.priceID;
+        if(this.info.categoryID) this.info.category = this.info.categoryID;
         this.fetched = true;
       })
       .catch(err => console.log(err.response));
@@ -373,68 +374,12 @@ export default {
       }).then(res => user = res.data);
       return user
     },
-    async loadUserRole(roleID){
-           await axios({
-                method: "POST",
-                url: apiURL + "/api/role/get",
-                data: {
-                    'roleID': roleID
-                }
-            }).then(res => {
-                this.info.submitter.role = res.data.name;
-                this.info.submitter.roleColor = res.data.color;
-            }).catch(err => console.log(err));
-        },
-    async getPrice(id){
-            let price = undefined;
-            await axios({
-                method: "POST",
-                url: apiURL + "/api/price/get",
-                headers: {
-                    'Authorization': this.$cookies.get('access-token')
-                },
-                data: {
-                    'priceID': id
-                }
-            }).then(res => price = res.data.value);
-            return price;
-        },
-        async getCategory(id){
-            let categ = undefined;
-            await axios({
-                method: "POST",
-                url: apiURL + "/api/category/get",
-                headers: {
-                    'Authorization': this.$cookies.get('access-token')
-                },
-                data: {
-                    'categoryID': id
-                }
-            }).then(res => categ = res.data.name);
-            return categ;
-        },
-      toggleLike(){
+    toggleLike(){
         this.liked = !this.liked;
         if(this.liked) this.addLike();
         else this.removeLike();
-      },
-      async fetchLikes(){
-        await axios({
-          method: 'post',
-          url: apiURL + "/api/like/get-total",
-          headers: {
-            'Authorization': this.$cookies.get('access-token')
-          },
-          data: {
-            'itemID': this.info._id
-          }
-        })
-        .then(res => {
-          this.likes = res.data.likes;
-        })
-        .catch(() => {
-          return;
-        });
+    },
+    async checkLiked(){
         let am = new AuthMiddleware();
         if(!await am.checkAuthentication()) return;
         await axios({
