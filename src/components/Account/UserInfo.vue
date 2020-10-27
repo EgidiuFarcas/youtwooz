@@ -99,7 +99,8 @@ export default {
         },
         async logout(){
             let am = new AuthMiddleware();
-            if(await am.logout()) window.location.reload();
+            await am.logout();
+            window.location.reload();
         }
     }
 }

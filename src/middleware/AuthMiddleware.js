@@ -38,6 +38,8 @@ export default class AuthMiddleware {
         }).catch(err => {
             console.log(err);
             succ = false;
+            Vue.$cookies.remove('access-token');
+            Vue.$cookies.remove('refresh-token');
         });
         return succ;
     }
