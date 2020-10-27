@@ -9,7 +9,7 @@
           <div class="Hero_inner">
             <a href="/" class="Hero_logo">
               <img
-                src="https://youtwooz.com/images/youtwooz_logo_fit.png"
+                src="@/assets/youtwooz_logo_fit.png"
                 style="max-width: 125px;"
               />
             </a>
