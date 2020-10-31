@@ -70,8 +70,8 @@ export default {
             this.artist3D = entities.decode(this.info.artist3D);
             if(this.info.gradientFrom) this.gradientFrom = entities.decode(this.info.gradientFrom);
             if(this.info.gradientTo) this.gradientTo = entities.decode(this.info.gradientTo);
-            this.category = this.info.categoryID;
-            this.price = this.info.priceID;
+            this.category = this.info.categoryID._id;
+            this.price = this.info.priceID._id;
         }
     },
     methods: {
